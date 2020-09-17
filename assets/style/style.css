@@ -1,1 +1,6 @@
-/* Custom Styles will go here */
+/* Custom Styling */
+
+/* Recipe results will wrap on multiple lines if needed */
+#recipe-content {
+    flex-wrap: wrap;
+}
