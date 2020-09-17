@@ -32,6 +32,24 @@ var complexRecipeSearchCall = function() {
 var recipeInformationCall = function(recipeId) {
     console.log("recipeInformationCall function was called");
     console.log(recipeId)
+
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + recipeId + "/information",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+            "x-rapidapi-key": "01310f4453msh5296c1bfdec8643p1f8127jsna75a6fa4a050"
+        }
+    }
+
+    console.log(settings)
+    
+    // $.ajax(settings).done(function (response) {
+    //     console.log(response);
+    // });
+
 }
 
 
@@ -48,10 +66,9 @@ var displayRecipeResults = function(response) {
         var recipeTileEl = $("<article>")
             .addClass('tile is-child is-info');
         // console.log(recipeTileEl)
-        var recipeTileTitleEl = $("<a>")
+        var recipeTileTitleEl = $("<p>")
             .addClass('subtitle')
             .text(response.results[i].title)
-            .attr("href","#");
         // console.log(recipeTileTitleEl)
         var recipeIdEl = $("<span hidden>")
             .attr("id", "recipe-id")

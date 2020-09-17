@@ -4,3 +4,8 @@
 #recipe-content {
     flex-wrap: wrap;
 }
+
+/* When a user hovers on a recipe tile, the cursor will change to a pointer to indicate that it can be clicked */
+.recipe-tile:hover {
+    cursor: pointer;
+}
