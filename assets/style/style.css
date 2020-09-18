@@ -9,3 +9,21 @@
 .recipe-tile:hover {
     cursor: pointer;
 }
+
+/* Increase padding on recipe search button and move the search icon so it is part of the button
+#recipe-search-button {
+    padding-left: 35px;
+}
+#recipe-search-icon {
+    position: relative;
+    left: 35px;
+    top: 5px;
+    pointer-events: none;
+    z-index: 5;
+} */
+
+/* Link style */
+a {
+    text-decoration: none;
+    color: black;
+}

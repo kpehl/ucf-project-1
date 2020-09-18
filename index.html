@@ -25,20 +25,23 @@
         </div>
     </section>
 
-    <div class="columns">
-        <div class="column is-2">
+    <div class="columns is-centered">
+        <!-- <div class="column"></div> -->
+        <div class="column is-2 is-centered">
             <aside class = "menu">
                 <ul class="menu-list">
                     <li>
-                        <div class="field" id="recipe-search-field">
-                            <label class="label">Search:</label>
-                            <div class="control">
-                                <input id="search-input" class="input is-info is-rounded" type="text" placeholder="search for a recipe here">
+                        <form>
+                            <div class="field" id="recipe-search-field">
+                                <label class="label">Search:</label>
+                                <div class="control">
+                                    <input id="search-input" class="input is-info is-rounded" type="text" placeholder="search for a recipe here">
+                                </div>
+                                <div class="control">
+                                    <button type="submit" class = "button is-info is-light is-rounded" id="recipe-search-button" value="Search for a recipe"><span class = "icon" id="recipe-search-icon"><i class = "fas fa-search"></i></span><span>Search for a recipe</span></button>
+                                </div>
                             </div>
-                            <div class="control">
-                                <button type = "submit" class = "button is-info is-light is-rounded" id="recipe-search"><span class = "icon"><i class = "fas fa-search"></i></span><span>Search for a recipe</span></button>
-                            </div>
-                        </div>
+                        </form>
                     </li>
                 </ul>
                 <p class="menu-label">
@@ -51,15 +54,40 @@
                 </ul>
             </aside>
         </div>
-        <div class="column is-10">
+        <div class="column is-7">
             <section class = "section">
                 <div class = "container" id = "recipe-content">
                     <!--sample input to keep from using up data calls-->
                     <!-- <div class="container tile is-ancestor" id="recipe-content"><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry</a><span hidden="" id="recipe-id">729592</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/729592-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice</a><span hidden="" id="recipe-id">195407</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/195407-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Puffs</a><span hidden="" id="recipe-id">648470</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/648470-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry with Edamame</a><span hidden="" id="recipe-id">758346</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/758346-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice With Hanger Steak</a><span hidden="" id="recipe-id">470149</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/470149-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Homemade Japanese Curry Rice</a><span hidden="" id="recipe-id">33321</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/33321-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Instant Pot Japanese Curry Chicken</a><span hidden="" id="recipe-id">955075</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/955075-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Lamb Shoulder Steak With Japanese Curry Oil</a><span hidden="" id="recipe-id">81758</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/81758-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Dry Curry</a><span hidden="" id="recipe-id">1434143</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1434143-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Karepan (Japanese Curry Grilled Cheese)</a><span hidden="" id="recipe-id">1439011</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1439011-312x231.jpg"></figure></article></div></div> -->
                 </div>
+                <div class = "container" id = "recipe-details"></div>
+            </section>
+        </div>
+        <div class="column is-2">
+            <section class = "section">
+                <div class = "container" id = "shopping-list-container">
+                    <div class = "content">
+                        <h3>Shopping List</h3>
+                        <ul id = "shopping-list"></ul>
+                    </div>
+                    
+                </div>
             </section>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class = "container">
+            <div class="content">
+                <p style="display: inline-block;">Recipe content provided by: <a href="https://spoonacular.com/" target="_blank">Spoonacular
+                    <figure class="image is-32x32" style="background-color: #00843c; display: inline-block; vertical-align: middle;">
+                        <img src="./assets/images/spoonacular-logo.svg" alt="Spoonacular Logo" width = "32" height="32" />
+                    </figure>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
 
 
 

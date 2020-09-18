@@ -4,6 +4,7 @@
 
 // Element Definitions
 var recipeContainerEl = $("#recipe-content").addClass("tile is-ancestor");
+var shoppingListEl = $("#shopping-list");
 
 // Spoonacular API
 
@@ -27,7 +28,7 @@ var complexRecipeSearchCall = function(searchTerm) {
         // var responseHeaders = jqXHR.getAllResponseHeaders();
         var callsRemaining = jqXHR.getResponseHeader("x-ratelimit-requests-remaining");
         // console.log(responseHeaders);
-        console.log(callsRemaining + ' calls remaining');
+        console.log(callsRemaining + ' search calls remaining');
         // console.log(response.results[0].title)
         // console.log(response.results[0].image)
         // console.log(response.results[0].id)
@@ -53,6 +54,7 @@ var recipeInformationCall = function(recipeId) {
     console.log("recipeInformationCall function was called");
     console.log(recipeId)
 
+    // settings for the API call
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -64,12 +66,40 @@ var recipeInformationCall = function(recipeId) {
         }
     }
 
-    console.log(settings)
+    // console.log(settings)
     
-    // $.ajax(settings).done(function (response) {
-    //     console.log(response);
-    // });
+    // data request
+    $.ajax(settings).done(function (response, status) {
+        console.log('recipe details ' + status);
+        console.log(response);
 
+        console.log(response.extendedIngredients)
+
+        // extract the ingredient list and the shopping list items
+        var ingredientsList = {};
+        var shoppingList = {};
+        for (i = 0; i < (response.extendedIngredients).length; i++) {
+            ingredientsList[i] = response.extendedIngredients[i].originalString;
+            shoppingList[i] = response.extendedIngredients[i].name;
+        }
+        console.log(ingredientsList);
+        console.log(shoppingList);
+
+        // extract the source url
+        var sourceUrl = response.sourceUrl;
+        console.log(sourceUrl);
+
+        // extract the recipe summary
+        var summary = response.summary;
+        console.log(summary);
+
+        // extract the recipe instructions
+        var instructions = response.instructions;
+        console.log(instructions);
+
+        moveToShoppingList(shoppingList);
+
+    });
 }
 
 
@@ -109,13 +139,28 @@ var displayRecipeResults = function(response) {
     }
 }
 
+// A function to display shopping list items
+var moveToShoppingList = function(shoppingList) {
+    console.log('move to shopping list was called')
+    // console.log(shoppingList);
+    // console.log(shoppingList[0]);
+    for (i=0; i < Object.keys(shoppingList).length; i++) {
+        console.log(shoppingList[i])
+        var shoppingListItemEl = $("<li>")
+            .addClass('is-info')
+            .attr('index', i)
+            .text(shoppingList[i]);
+        console.log(shoppingListItemEl);
+        shoppingListItemEl.appendTo($(shoppingListEl));
+    }
+};
+
 // When the user clicks on the search button, the search term is read and the recipe search is made
 var searchInputEl = document.querySelector("#search-input");
 var searchFieldEl = document.querySelector("#recipe-search-field");
 
 // Search Handler
 var recipeSearchHandler = function(event) {
-    event.preventDefault();
     var searchTerm = searchInputEl.value.trim();
     if (searchTerm) {
         complexRecipeSearchCall(searchTerm);
@@ -123,6 +168,7 @@ var recipeSearchHandler = function(event) {
     } else {
         return
     }
+    event.preventDefault();
 };
 
 
@@ -137,5 +183,3 @@ $("#recipe-content").on('click', '.recipe-tile', function() {
 // Event listener for a recipe search
 searchFieldEl.addEventListener("click", recipeSearchHandler);
 
-
-// complexRecipeSearchCall();
