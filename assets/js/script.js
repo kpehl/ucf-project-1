@@ -170,9 +170,15 @@ var displaySavedShoppingList = function() {
     for (i=0; i < Object.keys(savedShoppingListArr).length; i++) {
         console.log(savedShoppingListArr[i])
 
-        var shoppingListItemEl = $("<p>")
-            .text(savedShoppingListArr[i]);
-        shoppingListItemEl.appendTo($(shoppingListEl));
+        var shoppingListItemPEl = $("<p>")
+            .addClass('shopping-list-item')
+            .text(savedShoppingListArr[i])
+            // .attr('data-index', i);
+        var shoppingListItemButtonEl = $("<button>")
+            .attr('data-index', i);
+            // .text(savedShoppingListArr[i]);
+        shoppingListItemPEl.appendTo($(shoppingListItemButtonEl));
+        shoppingListItemButtonEl.appendTo($(shoppingListEl));
     }
 }
 
@@ -206,18 +212,22 @@ var moveToShoppingList = function(shoppingList) {
 };
 
 // When the user clicks on the search button, the search term is read and the recipe search is made
+// Needed DOM elements are defined
 var searchInputEl = document.querySelector("#search-input");
 var searchFieldEl = document.querySelector("#recipe-search-field");
 
-// Search Handler
+// Search Handler Function
 var recipeSearchHandler = function(event) {
+    // get the search term and trim off any leading or following white space
     var searchTerm = searchInputEl.value.trim();
+    // if a search term was entered, execute the search and clear the search box, otherwise, do nothing
     if (searchTerm) {
         complexRecipeSearchCall(searchTerm);
         searchInputEl.value = "";
     } else {
         return
     }
+    // prevent the default refreshing of the page and submitting the form to a server
     event.preventDefault();
 };
 
@@ -229,6 +239,37 @@ $("#recipe-content").on('click', '.recipe-tile', function() {
     // console.log(recipeId);
     recipeInformationCall(recipeId);
 })
+
+// When the user clicks on a shopping list item, they are given the option to edit or delete it
+$("#shopping-list-container").on('click', '.shopping-list-item', function() {
+    console.log('shopping list item clicked')
+    var shoppingItemIndex = $(this).parent().data("index");
+    console.log('index: ' + shoppingItemIndex)
+    var text = $(this).text().trim();
+    var textInput = $("<textarea>").addClass("form-control").val(text);
+    $(this).replaceWith(textInput);
+    textInput.trigger("focus")
+})
+// blur event to replace the textarea with the new p element 
+$("#shopping-list-container").on("blur", "textarea", function() {
+    console.log("blur")
+    // get the new text value
+    var text = $(this).val().trim();
+    // get the index number of the changed item
+    var shoppingItemIndex = $(this).parent().data("index");
+    // if the value was deleted, remove the element from the array
+    if (text == "") {
+        savedShoppingListArr.splice(shoppingItemIndex,1)
+    } else {
+    // set the array value to the new value
+    savedShoppingListArr[shoppingItemIndex] = text;
+    }
+    // save the array
+    saveShoppingListItems();
+    // display the shopping list again with edits in place
+    displaySavedShoppingList();
+})
+
 
 // Event listener for a recipe search
 searchFieldEl.addEventListener("click", recipeSearchHandler);

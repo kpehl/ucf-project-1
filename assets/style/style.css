@@ -5,22 +5,10 @@
     flex-wrap: wrap;
 }
 
-/* When a user hovers on a recipe tile, the cursor will change to a pointer to indicate that it can be clicked */
-.recipe-tile:hover {
+/* When a user hovers on a recipe tile or a shopping list item, the cursor will change to a pointer to indicate that it can be clicked */
+.recipe-tile:hover, #shopping-list-container:hover {
     cursor: pointer;
 }
-
-/* Increase padding on recipe search button and move the search icon so it is part of the button
-#recipe-search-button {
-    padding-left: 35px;
-}
-#recipe-search-icon {
-    position: relative;
-    left: 35px;
-    top: 5px;
-    pointer-events: none;
-    z-index: 5;
-} */
 
 /* Link style */
 a {
