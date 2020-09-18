@@ -4,7 +4,7 @@
 
 // Element Definitions
 var recipeContainerEl = $("#recipe-content").addClass("tile is-ancestor");
-var shoppingListEl = $("#shopping-list");
+var shoppingListEl = $("#shopping-list-container");
 
 // Spoonacular API
 
@@ -139,20 +139,70 @@ var displayRecipeResults = function(response) {
     }
 }
 
-// A function to display shopping list items
+// initialize the saved shopping items array
+var savedShoppingListArr = [];
+
+// A function to load shopping list items from local storage
+var loadShoppingListItems = function() {
+    console.log('load shopping list items was called')
+    // load any items from local storage
+    savedShoppingListArr = JSON.parse(localStorage.getItem("shopping-list-items"));
+    // if there is nothing stored, set the variable as an empty array
+    if (!savedShoppingListArr) {
+        savedShoppingListArr = [];
+    }
+    return savedShoppingListArr;
+}
+
+// A function to save shopping list items to local storage
+var saveShoppingListItems = function() {
+    console.log('save shopping list was called')
+    localStorage.setItem("shopping-list-items",JSON.stringify(savedShoppingListArr))
+}
+
+// A function to display the saved shopping list
+var displaySavedShoppingList = function() {
+    loadShoppingListItems();
+    // clear out any previous content
+    document.querySelector("#shopping-list-container").innerHTML = "";
+
+    // display the updated list
+    for (i=0; i < Object.keys(savedShoppingListArr).length; i++) {
+        console.log(savedShoppingListArr[i])
+
+        var shoppingListItemEl = $("<p>")
+            .text(savedShoppingListArr[i]);
+        shoppingListItemEl.appendTo($(shoppingListEl));
+    }
+}
+
+// A function to move shopping list items to the saved list and display the new list
 var moveToShoppingList = function(shoppingList) {
     console.log('move to shopping list was called')
     // console.log(shoppingList);
     // console.log(shoppingList[0]);
+
+    // load the saved items
+    loadShoppingListItems(savedShoppingListArr);
+
+    // add the new items, checking for repeated items
     for (i=0; i < Object.keys(shoppingList).length; i++) {
         console.log(shoppingList[i])
-        var shoppingListItemEl = $("<li>")
-            .addClass('is-info')
-            .attr('index', i)
-            .text(shoppingList[i]);
-        console.log(shoppingListItemEl);
-        shoppingListItemEl.appendTo($(shoppingListEl));
+        var duplicate = savedShoppingListArr.includes(shoppingList[i]);
+        if (!duplicate) {
+            console.log('not a duplicate')
+            savedShoppingListArr.push(shoppingList[i]);
+        } else {
+            console.log('duplicate')
+            continue
+        }
     }
+
+    // save the updated array
+    saveShoppingListItems();
+
+    // Display the updated array
+    displaySavedShoppingList();
 };
 
 // When the user clicks on the search button, the search term is read and the recipe search is made
@@ -183,3 +233,5 @@ $("#recipe-content").on('click', '.recipe-tile', function() {
 // Event listener for a recipe search
 searchFieldEl.addEventListener("click", recipeSearchHandler);
 
+// Display the saved shopping list when the page loads
+displaySavedShoppingList();
