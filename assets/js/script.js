@@ -95,9 +95,22 @@ var displayRecipeResults = function(response) {
 $(".recipe-tile").click(function() {
     console.log("clicked")
     var recipeId = $(this).find("span").text();
+    $('#recipe-modal').addClass('is-active');
     // console.log(recipeId);
     recipeInformationCall(recipeId);
+    console.log(settings);
 })
 
+//save recipe
+$('#save-recipe').click(function(){
+    console.log("save clicked");
+    //var savedRecipe = $('<li>)
+})
+
+//close modal
+$('#close-modal').click(function() {
+    console.log("clicked");
+    $('#recipe-modal').removeClass('is-active');
+})
 
 // complexRecipeSearchCall();
