@@ -290,6 +290,13 @@ var addItemHandler = function() {
     }
 }
 
+// Remove All Shopping List Items
+$("#remove-all-items").on("click", function() {
+        savedShoppingListArr.length = 0;
+        saveShoppingListItems();
+        $("#shopping-list-container").empty()
+})
+
 
 // Event listener for a recipe search
 searchFieldEl.addEventListener("click", recipeSearchHandler);
