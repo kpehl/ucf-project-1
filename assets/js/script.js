@@ -240,7 +240,7 @@ $("#recipe-content").on('click', '.recipe-tile', function() {
     recipeInformationCall(recipeId);
 })
 
-// When the user clicks on a shopping list item, they are given the option to edit or delete it
+// When the user clicks on a shopping list item, they are given the option to edit or delete it entirely
 $("#shopping-list-container").on('click', '.shopping-list-item', function() {
     console.log('shopping list item clicked')
     var shoppingItemIndex = $(this).parent().data("index");
@@ -270,9 +270,32 @@ $("#shopping-list-container").on("blur", "textarea", function() {
     displaySavedShoppingList();
 })
 
+// When the user clicks on the add item button, the item is read and added to the list
+// Needed DOM elements are defined
+var addItemInputEl = document.querySelector("#item-input");
+var addItemFieldEl = document.querySelector("#add-item-field");
+
+// Add Shopping List Item Handler
+var addItemHandler = function() {
+    // get the entered value
+    var text = $("#item-input").val();
+    // if something was submitted, add it to the array, save the array, 
+    //and display the updated list, otherwise, do nothing
+    if (text) {
+        savedShoppingListArr.unshift(text)
+        saveShoppingListItems();
+        displaySavedShoppingList();
+    } else {
+        return
+    }
+}
+
 
 // Event listener for a recipe search
 searchFieldEl.addEventListener("click", recipeSearchHandler);
+
+// Event listener for adding a shopping list item
+addItemFieldEl.addEventListener("click", addItemHandler);
 
 // Display the saved shopping list when the page loads
 displaySavedShoppingList();
