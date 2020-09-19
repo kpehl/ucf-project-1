@@ -65,7 +65,24 @@
         <div class="column is-2">
             <section class = "section pt-1">
                 <h3 class = "is-size-4">Shopping List</h3>
-                <div class = "container" id = "shopping-list-container">    
+                <div class = "container" id = "shopping-form">
+                    <form>
+                        <div class="field" id="add-item-field">
+                            <label class="label">Add an item:</label>
+                            <div class="control">
+                                <input id="item-input" class="input is-info is-rounded" type="text" placeholder="enter an ingredient here">
+                            </div>
+                            <div class="control">
+                                <button type="submit" class = "button is-info is-light is-rounded" id="add-item-button"><span class = "icon" id="add-item-icon"><i class = "fas fa-plus"></i></span><span>Add Item</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class = "container" id = "shopping-list-container"></div>
+                <div class="field" id="remove-items-field">
+                    <div class="control">
+                        <button class = "button is-small is-danger is-rounded mt-5" id = "remove-all-items"><span class = "icon" id = "remove-all-items-icon"><i class="fas fa-times"></i></span><span>Remove All Items</span></button>
+                    </div>
                 </div>
             </section>
         </div>
