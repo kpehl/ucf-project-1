@@ -294,7 +294,8 @@ $("#recipe-content").on('click', '.recipe-tile', function() {
     // var target = $("#recipe-details-modal");
     var target = $("#recipe-modal");
     $("html").addClass("is-clipped");
-    $(target).addClass("is-active")
+    $(target).addClass("is-active");
+    $("#modal-remove-recipe").addClass("is-hidden")
 });
 
 // When the user clicks on a saved recipe, they are given the information again
@@ -303,22 +304,27 @@ $("#saved-recipe-list").on('click', 'li', function() {
     var recipeId = $(this).find("span").text();
     console.log(recipeId);
     recipeInformationCall(recipeId);
-    var target = $("#saved-recipe-details-modal");
+    // var target = $("#saved-recipe-details-modal");
+    var target = $("#recipe-modal")
     $("html").addClass("is-clipped");
-    $(target).addClass("is-active")
+    $(target).addClass("is-active");
+    $("#modal-save-recipe").addClass("is-hidden")
 });
 
-// When a modal is closed, the user is returned to the active page
+// When a modal is closed, the user is returned to the active page and the buttons are returned to the neutral state
 $(".modal-close, #close-modal-one, #close-modal-two").click(function() {
     $("html").removeClass("is-clipped");
     $(this).parents().removeClass("is-active");
+    $("#modal-save-recipe").removeClass("is-hidden")
+    $("#modal-remove-recipe").removeClass("is-hidden")
 });
 
-// When the user clicks on the Save Recipe button in the modal, a mini recipe tile is moved to the saved recipe list
+// When the user clicks on the Save Recipe button in the modal, a mini recipe tile is moved to the saved recipe list, and the recipe list is refreshed
 $("#save-recipe-button, #modal-save-recipe").on('click', function() {
     console.log('save recipe button was clicked');
     createSavedRecipe();
     saveRecipe();
+    loadRecipe();
 });
 
 // When the user clicks on the Add Ingredients to Shopping List button, the ingredients are added
@@ -330,8 +336,8 @@ $("#save-ingredients-button,#save-ingredients-button-2, #modal-add-ingredients")
     moveToShoppingList(shoppingList);
 })
 
-// When the user clicks on the Remove Recipe button, the recipe is removed from the Saved Recipe List
-$("#remove-recipe-button").on('click', function() {
+// When the user clicks on the Remove Recipe button, the recipe is removed from the Saved Recipe List, and the modal is closed
+$("#remove-recipe-button, #modal-remove-recipe").on('click', function() {
     console.log('remove recipe button was clicked')
     var selectedRecipeId = $("#recipe-id")[0].innerHTML;
     console.log('selectedRecipeId: ' + selectedRecipeId)
@@ -344,6 +350,10 @@ $("#remove-recipe-button").on('click', function() {
     })
     saveRecipe();
     loadRecipe();
+    $("html").removeClass("is-clipped");
+    $(this).parents().removeClass("is-active");
+    $("#modal-save-recipe").removeClass("is-hidden")
+    $("#modal-remove-recipe").removeClass("is-hidden")
 });
 
 // initialize the saved recipes array
