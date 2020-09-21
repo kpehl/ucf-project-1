@@ -60,7 +60,7 @@ var complexRecipeSearchCall = function(searchTerm) {
 }
 
 // recipe information search: https://spoonacular.com/food-api/docs#Get-Recipe-Information
-var recipeInformationCall = function(recipeId) {
+var recipeInformationCall = function(recipeId,tileId) {
     // console.log("recipeInformationCall function was called");
     // console.log(recipeId)
 
@@ -117,7 +117,10 @@ var recipeInformationCall = function(recipeId) {
         var titleEl = '<p class="is-size-5 has-text-weight-bold" id="title">' + recipeTitle + '</p>';
 
         // An HTML Element is created for the Recipe ID
-        var recipeIdEl = '<p class="is-size-7 is-hidden" id="recipe-id">' + recipeId + '</p>'
+        var recipeIdEl = '<p class="is-size-7 is-hidden" id="recipe-id">' + recipeId + '</p>';
+
+        // An HTML Element is creathed for the Tile ID
+        var tileIdEl = '<p class="is-size-7 is-hidden" id="tile-id">' + tileId + '</p>';
 
         // An HTML Element is created for the source URL
         var urlEl = '<p class="is-size-7"><a href="' + sourceUrl + '" target="_blank">See original recipe</a></p>';
@@ -139,10 +142,14 @@ var recipeInformationCall = function(recipeId) {
         // An HTML Element is created for the instructions
         var instructionsEl = '<p>' + instructions + '</p>';
 
-        // The information is copied to the DOM in the modals
-        $("#recipe-summary").html(titleEl + recipeIdEl + pictureEl + urlEl + summaryEl + ingredientsListEl + shoppingListEl + instructionsEl);
+        // The information is copied to the DOM in the modals for the recipe details and the saved recipe details
+        $("#recipe-summary").html(titleEl + recipeIdEl + tileIdEl + pictureEl + urlEl + summaryEl + ingredientsListEl + shoppingListEl + instructionsEl);
         $("#recipe-summary-saved").html(titleEl + recipeIdEl + pictureEl + urlEl + summaryEl + ingredientsListEl + shoppingListEl + instructionsEl);
 
+        // Also for the card style modal
+        $('#modal-recipe-title').addClass("is-inline-block").html(titleEl + tileIdEl + recipeIdEl)
+        $('#modal-recipe-ingredients').html(pictureEl + ingredientsListEl + shoppingListEl)
+        $('#modal-recipe-instructions').html(instructionsEl)
     });
 }
 
@@ -282,8 +289,10 @@ var recipeSearchHandler = function(event) {
 $("#recipe-content").on('click', '.recipe-tile', function() {
     console.log("recipe tile clicked")
     var recipeId = $(this).find("#recipe-id").text();
-    recipeInformationCall(recipeId);
-    var target = $("#recipe-details-modal");
+    var tileId = $(this).find("#tile-id").text();
+    recipeInformationCall(recipeId, tileId);
+    // var target = $("#recipe-details-modal");
+    var target = $("#recipe-modal");
     $("html").addClass("is-clipped");
     $(target).addClass("is-active")
 });
@@ -300,20 +309,20 @@ $("#saved-recipe-list").on('click', 'li', function() {
 });
 
 // When a modal is closed, the user is returned to the active page
-$(".modal-close").click(function() {
+$(".modal-close, #close-modal-one, #close-modal-two").click(function() {
     $("html").removeClass("is-clipped");
-    $(this).parent().removeClass("is-active");
+    $(this).parents().removeClass("is-active");
 });
 
 // When the user clicks on the Save Recipe button in the modal, a mini recipe tile is moved to the saved recipe list
-$("#save-recipe-button").on('click', function() {
+$("#save-recipe-button, #modal-save-recipe").on('click', function() {
     console.log('save recipe button was clicked');
     createSavedRecipe();
     saveRecipe();
 });
 
 // When the user clicks on the Add Ingredients to Shopping List button, the ingredients are added
-$("#save-ingredients-button,#save-ingredients-button-2").on('click', function() {
+$("#save-ingredients-button,#save-ingredients-button-2, #modal-add-ingredients").on('click', function() {
     console.log('save ingredients button was clicked')
     var shoppingListString = $("#shopping-list-items")[0].innerHTML;
     var shoppingList = JSON.parse(shoppingListString);
