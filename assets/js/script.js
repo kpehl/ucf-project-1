@@ -167,6 +167,10 @@ var displayRecipeResults = function(response) {
             .attr("id", "recipe-id")
             .text(response.results[i].id);
         // console.log(recipeIdEl);
+        var tileIdEl = $("<span hidden>")
+        .attr("id", "tile-id")
+        .text("tile " + i);
+        // console.log(tileIdEl);
         var recipeTileFigureEl = $("<figure>")
             .addClass('image is-96x96');
         // console.log(recipeTileFigureEl)
@@ -177,6 +181,7 @@ var displayRecipeResults = function(response) {
         recipeTileImgEl.appendTo($(recipeTileFigureEl));
         recipeTileTitleEl.appendTo($(recipeTileEl));
         recipeIdEl.appendTo($(recipeTileEl));
+        tileIdEl.appendTo($(recipeTileEl));
         recipeTileFigureEl.appendTo($(recipeTileEl));
         recipeTileEl.appendTo($(recipeEl));
         recipeEl.appendTo($(recipeContainerEl));
@@ -276,7 +281,7 @@ var recipeSearchHandler = function(event) {
 // When the user clicks on the recipe tile, they are given recipe information in a modal
 $("#recipe-content").on('click', '.recipe-tile', function() {
     console.log("recipe tile clicked")
-    var recipeId = $(this).find("span").text();
+    var recipeId = $(this).find("#recipe-id").text();
     recipeInformationCall(recipeId);
     var target = $("#recipe-details-modal");
     $("html").addClass("is-clipped");
