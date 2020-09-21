@@ -98,17 +98,45 @@ $(".recipe-tile").click(function() {
     $('#recipe-modal').addClass('is-active');
     // console.log(recipeId);
     recipeInformationCall(recipeId);
-    console.log(settings);
+
+    var modalTitleEl = document.querySelector('#recipe-title');
+    var modalTitle = document.createElement('div');
+    modalTitle.setAttribute('src',response.results.title);
+    modalTitleEl.appendChild(modalTitle);
+
+
+    var modalIngredientEl = document.querySelector("#recipe-ingredients")
+    var modalIngredient = document.createElement('div');
+    modalIngredient.setAttribute('src',response.results.);
+    modalIngredientEl.appendChild(modalIngredient);
+
+    var modalInstructEl = document.querySelector("#recipe-instructions")
+    var modalInstruction = document.createElement('div');
+    modalInstruction.setAttribute('src',response.results.);
+    modalInstructionEl.appendChild(modalInstruction);
+
+    
 })
 
 //save recipe
 $('#save-recipe').click(function(){
     console.log("save clicked");
-    //var savedRecipe = $('<li>)
+    //add save functionality
 })
 
+//add to list
+//get ingredients and add to an array probably
+
+//forward/back buttons functionality
+//how lmao
+
+
 //close modal
-$('#close-modal').click(function() {
+$('#close-modal-one').click(function() {
+    console.log("clicked");
+    $('#recipe-modal').removeClass('is-active');
+})
+$('#close-modal-two').click(function() {
     console.log("clicked");
     $('#recipe-modal').removeClass('is-active');
 })

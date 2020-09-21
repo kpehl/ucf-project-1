@@ -61,15 +61,19 @@
         <div class="modal-card">
           <header class="modal-card-head">
             <p class="modal-card-title" id="recipe-title"></p>
-            <button class="delete" aria-label="close"></button>
+            <button class="delete" id="close-modal-one"></button>
           </header>
           <section class="modal-card-body">
             <div id="recipe-title"></div>
-            <div id="recipe-content"></div>
+            <div id="recipe-ingredients"></div>
+            <div id="recipe-instructions"></div>
           </section>
           <footer class="modal-card-foot">
+            <button class="button" id="next-button">Next</button>
+            <button class="button" id="back-button">Previous</button>
             <button class="button is-success" id="save-recipe">Save Recipe</button>
-            <button class="button" id="close-modal">Cancel</button>
+            <button class="button" id="add-ingredients">Add to Shopping List</button>
+            <button class="button" id="close-modal-two">Cancel</button>
           </footer>
         </div>
       </div>
