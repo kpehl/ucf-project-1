@@ -12,6 +12,12 @@
 
 /* Link style */
 a {
-    text-decoration: none;
+    text-decoration: underline dotted;
     color: black;
+    padding-left: 0.25rem;
+}
+
+/* Images in saved recipe list */
+#saved-recipe-list img {
+    width: 15%;
 }

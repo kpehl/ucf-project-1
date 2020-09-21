@@ -6,6 +6,16 @@
 var recipeContainerEl = $("#recipe-content").addClass("tile is-ancestor");
 var shoppingListEl = $("#shopping-list-container");
 
+// Google Places API
+// Define personal API Key
+var myKey = "AIzaSyAA5eb9-1T_lunhaqi0inxQjTbBFHdKCrU"
+// Define the embedded map url with a supermarket query and a zoom setting to show the local area 
+var embeddedMapUrl = "https://www.google.com/maps/embed/v1/search?key=" + myKey + "&q=supermarket&zoom=12";
+// Create the html element
+embeddedMapEl = '<figure class = "image"><iframe width="450" height="250" frameborder="0" style="border:0" src="' + embeddedMapUrl + '" allowfullscreen></iframe></figure>'
+// Embed the map with the search results
+document.querySelector("#map-container").innerHTML = embeddedMapEl;
+
 // Spoonacular API
 
 // complex recipe search: https://spoonacular.com/food-api/docs#Search-Recipes-Complex 
@@ -51,8 +61,8 @@ var complexRecipeSearchCall = function(searchTerm) {
 
 // recipe information search: https://spoonacular.com/food-api/docs#Get-Recipe-Information
 var recipeInformationCall = function(recipeId) {
-    console.log("recipeInformationCall function was called");
-    console.log(recipeId)
+    // console.log("recipeInformationCall function was called");
+    // console.log(recipeId)
 
     // settings for the API call
     var settings = {
@@ -65,15 +75,16 @@ var recipeInformationCall = function(recipeId) {
             "x-rapidapi-key": "01310f4453msh5296c1bfdec8643p1f8127jsna75a6fa4a050"
         }
     }
-
-    // console.log(settings)
     
     // data request
     $.ajax(settings).done(function (response, status) {
-        console.log('recipe details ' + status);
-        console.log(response);
+        // console.log('recipe details ' + status);
+        // console.log(response);
 
-        console.log(response.extendedIngredients)
+        // console.log(response.extendedIngredients)
+
+        // extract the title
+        var recipeTitle = response.title;
 
         // extract the ingredient list and the shopping list items
         var ingredientsList = {};
@@ -82,22 +93,55 @@ var recipeInformationCall = function(recipeId) {
             ingredientsList[i] = response.extendedIngredients[i].originalString;
             shoppingList[i] = response.extendedIngredients[i].name;
         }
-        console.log(ingredientsList);
-        console.log(shoppingList);
+        // console.log(ingredientsList);
+        // console.log(shoppingList);
 
         // extract the source url
         var sourceUrl = response.sourceUrl;
-        console.log(sourceUrl);
+        // console.log(sourceUrl);
+
+        // extract the recipe picture URL
+        var pictureUrl = response.image
 
         // extract the recipe summary
         var summary = response.summary;
-        console.log(summary);
+        // console.log(summary);
 
         // extract the recipe instructions
         var instructions = response.instructions;
-        console.log(instructions);
+        // console.log(instructions);
 
-        moveToShoppingList(shoppingList);
+        // moveToShoppingList(shoppingList);
+
+        // An HTML Element is created for the title
+        var titleEl = '<p class="is-size-5 has-text-weight-bold" id="title">' + recipeTitle + '</p>';
+
+        // An HTML Element is created for the Recipe ID
+        var recipeIdEl = '<p class="is-size-7 is-hidden" id="recipe-id">' + recipeId + '</p>'
+
+        // An HTML Element is created for the source URL
+        var urlEl = '<p class="is-size-7"><a href="' + sourceUrl + '" target="_blank">See original recipe</a></p>';
+
+        // An HTML Element is created for the image
+        var pictureEl = '<figure class = "image is-128x128" id="picture"><img src="' + pictureUrl + '" alt="recipe picture" /></figure>'
+
+        // An HTML Element is created for the summary
+        var summaryEl = '<p class="is-size-7">'+ summary + '</p>';
+
+        // An HTML element is created for the ingredient list
+        var ingredientsListArr = Object.values(ingredientsList);
+        var ingredientsListString = ingredientsListArr.join('<br>');
+        var ingredientsListEl = '<p>' + ingredientsListString + '</p>';
+
+        // An HTML element is created for the shopping list items
+        var shoppingListEl = '<p class = "is-hidden" id = "shopping-list-items">' + JSON.stringify(shoppingList) + '</p>';
+
+        // An HTML Element is created for the instructions
+        var instructionsEl = '<p>' + instructions + '</p>';
+
+        // The information is copied to the DOM in the modals
+        $("#recipe-summary").html(titleEl + recipeIdEl + pictureEl + urlEl + summaryEl + ingredientsListEl + shoppingListEl + instructionsEl);
+        $("#recipe-summary-saved").html(titleEl + recipeIdEl + pictureEl + urlEl + summaryEl + ingredientsListEl + shoppingListEl + instructionsEl);
 
     });
 }
@@ -144,7 +188,6 @@ var savedShoppingListArr = [];
 
 // A function to load shopping list items from local storage
 var loadShoppingListItems = function() {
-    console.log('load shopping list items was called')
     // load any items from local storage
     savedShoppingListArr = JSON.parse(localStorage.getItem("shopping-list-items"));
     // if there is nothing stored, set the variable as an empty array
@@ -156,7 +199,6 @@ var loadShoppingListItems = function() {
 
 // A function to save shopping list items to local storage
 var saveShoppingListItems = function() {
-    console.log('save shopping list was called')
     localStorage.setItem("shopping-list-items",JSON.stringify(savedShoppingListArr))
 }
 
@@ -168,7 +210,6 @@ var displaySavedShoppingList = function() {
 
     // display the updated list
     for (i=0; i < Object.keys(savedShoppingListArr).length; i++) {
-        console.log(savedShoppingListArr[i])
 
         var shoppingListItemPEl = $("<p>")
             .addClass('shopping-list-item')
@@ -184,7 +225,7 @@ var displaySavedShoppingList = function() {
 
 // A function to move shopping list items to the saved list and display the new list
 var moveToShoppingList = function(shoppingList) {
-    console.log('move to shopping list was called')
+    // console.log('move to shopping list was called')
     // console.log(shoppingList);
     // console.log(shoppingList[0]);
 
@@ -193,13 +234,13 @@ var moveToShoppingList = function(shoppingList) {
 
     // add the new items, checking for repeated items
     for (i=0; i < Object.keys(shoppingList).length; i++) {
-        console.log(shoppingList[i])
+        // console.log(shoppingList[i])
         var duplicate = savedShoppingListArr.includes(shoppingList[i]);
         if (!duplicate) {
-            console.log('not a duplicate')
+            // console.log('not a duplicate')
             savedShoppingListArr.push(shoppingList[i]);
         } else {
-            console.log('duplicate')
+            // console.log('duplicate')
             continue
         }
     }
@@ -234,17 +275,121 @@ var recipeSearchHandler = function(event) {
 
 // When the user clicks on the recipe tile, they are given recipe information in a modal
 $("#recipe-content").on('click', '.recipe-tile', function() {
-    console.log("clicked")
+    console.log("recipe tile clicked")
     var recipeId = $(this).find("span").text();
-    // console.log(recipeId);
     recipeInformationCall(recipeId);
+    var target = $("#recipe-details-modal");
+    $("html").addClass("is-clipped");
+    $(target).addClass("is-active")
+});
+
+// When the user clicks on a saved recipe, they are given the information again
+$("#saved-recipe-list").on('click', 'li', function() {
+    console.log('saved recipe clicked')
+    var recipeId = $(this).find("span").text();
+    console.log(recipeId);
+    recipeInformationCall(recipeId);
+    var target = $("#saved-recipe-details-modal");
+    $("html").addClass("is-clipped");
+    $(target).addClass("is-active")
+});
+
+// When a modal is closed, the user is returned to the active page
+$(".modal-close").click(function() {
+    $("html").removeClass("is-clipped");
+    $(this).parent().removeClass("is-active");
+});
+
+// When the user clicks on the Save Recipe button in the modal, a mini recipe tile is moved to the saved recipe list
+$("#save-recipe-button").on('click', function() {
+    console.log('save recipe button was clicked');
+    createSavedRecipe();
+    saveRecipe();
+});
+
+// When the user clicks on the Add Ingredients to Shopping List button, the ingredients are added
+$("#save-ingredients-button,#save-ingredients-button-2").on('click', function() {
+    console.log('save ingredients button was clicked')
+    var shoppingListString = $("#shopping-list-items")[0].innerHTML;
+    var shoppingList = JSON.parse(shoppingListString);
+    console.log(shoppingList)
+    moveToShoppingList(shoppingList);
 })
+
+// When the user clicks on the Remove Recipe button, the recipe is removed from the Saved Recipe List
+$("#remove-recipe-button").on('click', function() {
+    console.log('remove recipe button was clicked')
+    var selectedRecipeId = $("#recipe-id")[0].innerHTML;
+    console.log('selectedRecipeId: ' + selectedRecipeId)
+    localSavedRecipes.forEach(function(items, index) {
+        var recipeId = items.id;
+        console.log('array recipe id: ' + recipeId)
+        if (recipeId == selectedRecipeId) {
+            localSavedRecipes.splice(index,1);
+        }
+    })
+    saveRecipe();
+    loadRecipe();
+});
+
+// initialize the saved recipes array
+var localSavedRecipes = [];
+
+// Create a Saved Recipe Element
+var createSavedRecipe = function() {
+    // get the recipe title, recipe id, and picture tag from the modal
+    var title = $("#title").text();
+    var pictureTag = $("#picture")[0].innerHTML;
+    var recipeId = $("#recipe-id")[0].innerHTML;
+    console.log(recipeId);
+    // An HTML Element is created for the title and id
+    var titleEl = '<p class="is-size-7 is-inline"><span class = "is-hidden">' + recipeId + '</span>' + title + '</p>'
+    // An HTML Element is created for the image
+    var pictureEl = '<figure class = "image is-16x16 is-inline">' + pictureTag + '</figure>'
+    // A list item element is created for the saved recipe
+    savedRecipeListItem = $("<li class = 'saved-recipe-item'>")
+    // The content is added to the list item is added to the Saved Recipes list
+    savedRecipeListItem.html(pictureEl + titleEl);
+    savedRecipeListItem.appendTo($("#saved-recipe-list"));
+    // The recipe attributes are saved to the saved recipe array at the beginning
+    var localRecipeItem = {"title": titleEl, "picture": pictureEl, "id": recipeId};
+    console.log(localRecipeItem);
+    localSavedRecipes.unshift(localRecipeItem);
+};
+
+// Save the saved recipe list
+var saveRecipe = function() {
+    localStorage.setItem("saved-recipes", JSON.stringify(localSavedRecipes));
+};
+
+// Load Recipe Function
+var loadRecipe = function() {
+    localSavedRecipes = JSON.parse(localStorage.getItem("saved-recipes"));
+
+    // if there is nothing in local storage, create a new empty to track the recipe information objects
+    if (!localSavedRecipes) {
+        localSavedRecipes = [];
+    }
+
+    // Clear out old content
+    $("#saved-recipe-list").empty();
+
+    // loop over the object properties and create the saved elements
+    localSavedRecipes.forEach(function(items) {
+        var titleEl = items.title;
+        var pictureEl = items.picture;
+        var recipeId = items.id;
+        // A list item element is created for the saved recipe
+        savedRecipeListItem = $("<li>")
+        // The content is added to the list item is added to the Saved Recipes list
+        savedRecipeListItem.html(pictureEl + titleEl);
+        savedRecipeListItem.appendTo($("#saved-recipe-list"));
+    })
+};
 
 // When the user clicks on a shopping list item, they are given the option to edit or delete it entirely
 $("#shopping-list-container").on('click', '.shopping-list-item', function() {
-    console.log('shopping list item clicked')
     var shoppingItemIndex = $(this).parent().data("index");
-    console.log('index: ' + shoppingItemIndex)
     var text = $(this).text().trim();
     var textInput = $("<textarea>").addClass("form-control").val(text);
     $(this).replaceWith(textInput);
@@ -252,7 +397,6 @@ $("#shopping-list-container").on('click', '.shopping-list-item', function() {
 })
 // blur event to replace the textarea with the new p element 
 $("#shopping-list-container").on("blur", "textarea", function() {
-    console.log("blur")
     // get the new text value
     var text = $(this).val().trim();
     // get the index number of the changed item
@@ -270,7 +414,7 @@ $("#shopping-list-container").on("blur", "textarea", function() {
     displaySavedShoppingList();
 })
 
-// When the user clicks on the add item button, the item is read and added to the list
+// When the user clicks on the Shopping List add item button, the item is read and added to the list
 // Needed DOM elements are defined
 var addItemInputEl = document.querySelector("#item-input");
 var addItemFieldEl = document.querySelector("#add-item-field");
@@ -306,3 +450,6 @@ addItemFieldEl.addEventListener("click", addItemHandler);
 
 // Display the saved shopping list when the page loads
 displaySavedShoppingList();
+
+// Load saved recipes when the page loads
+loadRecipe();
