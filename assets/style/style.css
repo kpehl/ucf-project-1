@@ -21,3 +21,9 @@ a {
 #saved-recipe-list img {
     width: 15%;
 }
+
+/* Modal titles and text will wrap if needed */
+.modal p {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+}

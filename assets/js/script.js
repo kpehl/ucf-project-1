@@ -114,19 +114,19 @@ var recipeInformationCall = function(recipeId,tileId) {
         // moveToShoppingList(shoppingList);
 
         // An HTML Element is created for the title
-        var titleEl = '<p class="is-size-5 has-text-weight-bold" id="title">' + recipeTitle + '</p>';
+        var titleEl = '<p class="is-size-5 has-text-weight-bold" id="modal-title">' + recipeTitle + '</p>';
 
         // An HTML Element is created for the Recipe ID
-        var recipeIdEl = '<p class="is-size-7 is-hidden" id="recipe-id">' + recipeId + '</p>';
+        var recipeIdEl = '<p class="is-size-7 is-hidden" id="modal-recipe-id">' + recipeId + '</p>';
 
-        // An HTML Element is creathed for the Tile ID
-        var tileIdEl = '<p class="is-size-7 is-hidden" id="tile-id">' + tileId + '</p>';
+        // An HTML Element is created for the Tile ID
+        var tileIdEl = '<p class="is-size-7 is-hidden" id="modal-tile-id">' + tileId + '</p>';
 
         // An HTML Element is created for the source URL
         var urlEl = '<p class="is-size-7"><a href="' + sourceUrl + '" target="_blank">See original recipe</a></p>';
 
         // An HTML Element is created for the image
-        var pictureEl = '<figure class = "image is-128x128" id="picture"><img src="' + pictureUrl + '" alt="recipe picture" /></figure>'
+        var pictureEl = '<figure class = "image is-128x128" id="modal-picture"><img src="' + pictureUrl + '" alt="recipe picture" /></figure>'
 
         // An HTML Element is created for the summary
         var summaryEl = '<p class="is-size-7">'+ summary + '</p>';
@@ -147,7 +147,7 @@ var recipeInformationCall = function(recipeId,tileId) {
         $("#recipe-summary-saved").html(titleEl + recipeIdEl + pictureEl + urlEl + summaryEl + ingredientsListEl + shoppingListEl + instructionsEl);
 
         // Also for the card style modal
-        $('#modal-recipe-title').addClass("is-inline-block").html(titleEl + tileIdEl + recipeIdEl)
+        $('#modal-recipe-title').html(titleEl + tileIdEl + recipeIdEl)
         $('#modal-recipe-ingredients').html(pictureEl + ingredientsListEl + shoppingListEl)
         $('#modal-recipe-instructions').html(instructionsEl)
     });
@@ -302,6 +302,7 @@ $("#recipe-content").on('click', '.recipe-tile', function() {
 $("#saved-recipe-list").on('click', 'li', function() {
     console.log('saved recipe clicked')
     var recipeId = $(this).find("span").text();
+    // var tileId = $(this).find("#tile-id").text();
     console.log(recipeId);
     recipeInformationCall(recipeId);
     // var target = $("#saved-recipe-details-modal");
@@ -309,6 +310,8 @@ $("#saved-recipe-list").on('click', 'li', function() {
     $("html").addClass("is-clipped");
     $(target).addClass("is-active");
     $("#modal-save-recipe").addClass("is-hidden")
+    $("#modal-next-button").addClass("is-hidden")
+    $("#modal-back-button").addClass("is-hidden")
 });
 
 // When a modal is closed, the user is returned to the active page and the buttons are returned to the neutral state
@@ -317,6 +320,8 @@ $(".modal-close, #close-modal-one, #close-modal-two").click(function() {
     $(this).parents().removeClass("is-active");
     $("#modal-save-recipe").removeClass("is-hidden")
     $("#modal-remove-recipe").removeClass("is-hidden")
+    $("#modal-next-button").removeClass("is-hidden")
+    $("#modal-back-button").removeClass("is-hidden")
 });
 
 // When the user clicks on the Save Recipe button in the modal, a mini recipe tile is moved to the saved recipe list, and the recipe list is refreshed
@@ -336,10 +341,10 @@ $("#save-ingredients-button,#save-ingredients-button-2, #modal-add-ingredients")
     moveToShoppingList(shoppingList);
 })
 
-// When the user clicks on the Remove Recipe button, the recipe is removed from the Saved Recipe List, and the modal is closed
+// When the user clicks on the Remove Recipe button, the recipe is removed from the Saved Recipe List, and the modal is closed in neutral state
 $("#remove-recipe-button, #modal-remove-recipe").on('click', function() {
     console.log('remove recipe button was clicked')
-    var selectedRecipeId = $("#recipe-id")[0].innerHTML;
+    var selectedRecipeId = $("#modal-recipe-id")[0].innerHTML;
     console.log('selectedRecipeId: ' + selectedRecipeId)
     localSavedRecipes.forEach(function(items, index) {
         var recipeId = items.id;
@@ -354,17 +359,33 @@ $("#remove-recipe-button, #modal-remove-recipe").on('click', function() {
     $(this).parents().removeClass("is-active");
     $("#modal-save-recipe").removeClass("is-hidden")
     $("#modal-remove-recipe").removeClass("is-hidden")
+    $("#modal-next-button").removeClass("is-hidden")
+    $("#modal-back-button").removeClass("is-hidden")
 });
+
+// When the user clicks on the "next" button, the next recipe result is shown
+$("#modal-next-button").on('click', function() {
+    console.log('next button clicked')
+    var tileId = $('#tile-id')[0].innerHTML;
+    console.log("tile id: " + tileId);
+})
+
+// When the user clicks on the "previous" button, the previous recipe result is shown
+$("#modal-back-button").on('click', function() {
+    console.log('back button clicked')
+    var tileId = $("#tile-id")[0].innerHTML;
+    console.log(" tile id: " + tileId);
+})
 
 // initialize the saved recipes array
 var localSavedRecipes = [];
 
 // Create a Saved Recipe Element
 var createSavedRecipe = function() {
-    // get the recipe title, recipe id, and picture tag from the modal
-    var title = $("#title").text();
-    var pictureTag = $("#picture")[0].innerHTML;
-    var recipeId = $("#recipe-id")[0].innerHTML;
+    // get the recipe title, recipe id, tile id and picture tag from the modal
+    var title = $("#modal-title").text();
+    var pictureTag = $("#modal-picture")[0].innerHTML;
+    var recipeId = $("#modal-recipe-id")[0].innerHTML;
     console.log(recipeId);
     // An HTML Element is created for the title and id
     var titleEl = '<p class="is-size-7 is-inline"><span class = "is-hidden">' + recipeId + '</span>' + title + '</p>'
