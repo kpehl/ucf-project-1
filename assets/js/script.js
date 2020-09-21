@@ -44,11 +44,42 @@ var recipeInformationCall = function(recipeId) {
         }
     }
 
-    console.log(settings)
+    //console.log(settings)
     
-    // $.ajax(settings).done(function (response) {
-    //     console.log(response);
-    // });
+     $.ajax(settings).done(function (response) {
+         console.log(response);
+
+        /* 
+        var modalTitleEl = document.querySelector('#recipe-title');
+         var modalTitle = document.createElement('div');
+         modalTitle.value(response.title);
+         modalTitleEl.appendChild(modalTitle);
+     
+         var modalIngredientEl = document.querySelector("#recipe-ingredients")
+         var modalIngredient = document.createElement('div');
+         modalIngredient.text(response.extendedIngredients);
+         modalIngredientEl.appendChild(modalIngredient);
+     
+         var modalInstructEl = document.querySelector("#recipe-instructions")
+         var modalInstruction = document.createElement('div');
+         modalInstruction.text(response.instructions);
+         modalInstructEl.appendChild(modalInstruction);
+        */
+        
+        //jquery attempt
+        var modalTitleEl = $("<h1>")
+            .text(response.title);
+        console.log(modalTitleEl);
+        var modalIngredientEl = $("<div>")
+            .text(response.extendedIngredients);
+        console.log(modalIngredientEl);
+        var modalInstructEl = $("<div>")
+            .text(response.instructions);
+        console.log(modalInstructEl);
+        
+        //appends
+     });
+    
 
 }
 
@@ -64,7 +95,8 @@ var displayRecipeResults = function(response) {
             .addClass('tile is-parent is-2 recipe-tile');
         // console.log(recipeEl)
         var recipeTileEl = $("<article>")
-            .addClass('tile is-child is-info');
+            .addClass('tile is-child is-info')
+            .attr("id", "tile"+i);
         // console.log(recipeTileEl)
         var recipeTileTitleEl = $("<p>")
             .addClass('subtitle')
@@ -74,6 +106,10 @@ var displayRecipeResults = function(response) {
             .attr("id", "recipe-id")
             .text(response.results[i].id);
         // console.log(recipeIdEl);
+        var tileIdEl = $("<span hidden>")
+            .attr("id", "tile-id")
+            .text(i);
+        console.log(tileIdEl);
         var recipeTileFigureEl = $("<figure>")
             .addClass('image is-96x96');
         // console.log(recipeTileFigureEl)
@@ -84,6 +120,7 @@ var displayRecipeResults = function(response) {
         recipeTileImgEl.appendTo($(recipeTileFigureEl));
         recipeTileTitleEl.appendTo($(recipeTileEl));
         recipeIdEl.appendTo($(recipeTileEl));
+        tileIdEl.appendTo($(recipeTileEl));
         recipeTileFigureEl.appendTo($(recipeTileEl));
         recipeTileEl.appendTo($(recipeEl));
         recipeEl.appendTo($(recipeContainerEl));
@@ -93,51 +130,49 @@ var displayRecipeResults = function(response) {
 
 // When the user clicks on the recipe tile, they are given recipe information in a modal
 $(".recipe-tile").click(function() {
-    console.log("clicked")
+    // console.log("clicked");
     var recipeId = $(this).find("span").text();
     $('#recipe-modal').addClass('is-active');
     // console.log(recipeId);
     recipeInformationCall(recipeId);
-
-    var modalTitleEl = document.querySelector('#recipe-title');
-    var modalTitle = document.createElement('div');
-    modalTitle.setAttribute('src',response.results.title);
-    modalTitleEl.appendChild(modalTitle);
-
-
-    var modalIngredientEl = document.querySelector("#recipe-ingredients")
-    var modalIngredient = document.createElement('div');
-    modalIngredient.setAttribute('src',response.results.);
-    modalIngredientEl.appendChild(modalIngredient);
-
-    var modalInstructEl = document.querySelector("#recipe-instructions")
-    var modalInstruction = document.createElement('div');
-    modalInstruction.setAttribute('src',response.results.);
-    modalInstructionEl.appendChild(modalInstruction);
-
-    
 })
 
 //save recipe
 $('#save-recipe').click(function(){
     console.log("save clicked");
     //add save functionality
-})
+});
 
 //add to list
 //get ingredients and add to an array probably
 
-//forward/back buttons functionality
-//how lmao
+//forward button
+$('#next-button').click(function(){
+    //console.log("next");
+    var tileID = Document.getElementByID("#tile-id");
+    var newTileID = tileID.val() + 1;
+    console.log(tileID);
+
+    // may or may not work, not tested
+    var tileInQuestion = $("#tile-" + NewtileID) //find new tile id
+    recipeId = $(this).find("span").text(); //find recipeID for new tile, problem = looking in span, not whole div add tile number to id in main div, 
+    recipeInformationCall(recipeId); //call function to populate modal, which is already active
+});
+
+//back button
+$('#back-button').click(function(){
+    //console.log("back");
+
+});
 
 
 //close modal
-$('#close-modal-one').click(function() {
-    console.log("clicked");
+$('#close-modal-x').click(function() {
+    //console.log("clicked");
     $('#recipe-modal').removeClass('is-active');
 })
-$('#close-modal-two').click(function() {
-    console.log("clicked");
+$('#close-modal-close').click(function() {
+    //console.log("clicked");
     $('#recipe-modal').removeClass('is-active');
 })
 
