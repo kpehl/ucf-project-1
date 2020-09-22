@@ -33,15 +33,7 @@ var complexRecipeSearchCall = function(searchTerm) {
     
     $.ajax(settings)
     .done(function (response, status, jqXHR) {
-        // console.log(response);
-        console.log(status);
-        // var responseHeaders = jqXHR.getAllResponseHeaders();
         var callsRemaining = jqXHR.getResponseHeader("x-ratelimit-requests-remaining");
-        // console.log(responseHeaders);
-        console.log(callsRemaining + ' search calls remaining');
-        // console.log(response.results[0].title)
-        // console.log(response.results[0].image)
-        // console.log(response.results[0].id)
 
         // A check to prevent overage charges on the API
         if (callsRemaining > 5) {
@@ -64,8 +56,6 @@ var complexRecipeSearchCall = function(searchTerm) {
 
 // recipe information search: https://spoonacular.com/food-api/docs#Get-Recipe-Information
 var recipeInformationCall = function(recipeId,tileId,totalTiles) {
-    // console.log("recipeInformationCall function was called");
-    // console.log(recipeId)
 
     // settings for the API call
     var settings = {
@@ -81,10 +71,6 @@ var recipeInformationCall = function(recipeId,tileId,totalTiles) {
     
     // data request
     $.ajax(settings).done(function (response, status) {
-        // console.log('recipe details ' + status);
-        // console.log(response);
-
-        // console.log(response.extendedIngredients)
 
         // extract the title
         var recipeTitle = response.title;
@@ -96,25 +82,18 @@ var recipeInformationCall = function(recipeId,tileId,totalTiles) {
             ingredientsList[i] = response.extendedIngredients[i].originalString;
             shoppingList[i] = response.extendedIngredients[i].name;
         }
-        // console.log(ingredientsList);
-        // console.log(shoppingList);
 
         // extract the source url
         var sourceUrl = response.sourceUrl;
-        // console.log(sourceUrl);
 
         // extract the recipe picture URL
         var pictureUrl = response.image
 
         // extract the recipe summary
         var summary = response.summary;
-        // console.log(summary);
 
         // extract the recipe instructions
         var instructions = response.instructions;
-        // console.log(instructions);
-
-        // moveToShoppingList(shoppingList);
 
         // An HTML Element is created for the title
         var titleEl = '<p class="is-size-5 has-text-weight-bold" id="modal-title">' + recipeTitle + '</p>';
@@ -164,35 +143,27 @@ var recipeInformationCall = function(recipeId,tileId,totalTiles) {
 var displayRecipeResults = function(response) {
     // clear previous content
     document.querySelector("#recipe-content").innerHTML = "";
-    // console.log(recipeContainerEl)
     for (i=0;i<Object.keys(response.results).length;i++) {
         var recipeEl = $("<div>")
             .addClass('tile is-parent is-2 recipe-tile');
-        // console.log(recipeEl)
         var recipeTileEl = $("<article>")
             .addClass('tile is-child is-info');
-        // console.log(recipeTileEl)
         var recipeTileTitleEl = $("<p>")
             .addClass('subtitle')
             .text(response.results[i].title)
-        // console.log(recipeTileTitleEl)
         var recipeIdEl = $("<span hidden>")
             .attr("id", "recipe-id")
             .text(response.results[i].id);
-        // console.log(recipeIdEl);
         var tileIdEl = $("<span hidden>")
         .attr("id", "tile-id")
         .text(i);
         var totalTilesEl = $("<span hidden>")
         .attr("id", "total-tiles")
         .text(Object.keys(response.results).length)
-        // console.log(tileIdEl);
         var recipeTileFigureEl = $("<figure>")
             .addClass('image is-96x96');
-        // console.log(recipeTileFigureEl)
         var recipeTileImgEl = $("<img />")
             .attr("src", response.results[i].image);
-        // console.log(recipeTileImgEl)
 
         recipeTileImgEl.appendTo($(recipeTileFigureEl));
         recipeTileTitleEl.appendTo($(recipeTileEl));
