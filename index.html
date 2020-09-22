@@ -95,12 +95,12 @@
                         <div id="modal-recipe-instructions"></div>
                       </section>
                       <footer class="modal-card-foot">
-                        <button class="button" id="modal-next-button">Next</button>
                         <button class="button" id="modal-back-button">Previous</button>
+                        <button class="button" id="modal-next-button">Next</button>
                         <button class="button is-success" id="modal-save-recipe">Save Recipe</button>
                         <button class="button is-danger" id="modal-remove-recipe">Remove Recipe</button>
                         <button class="button" id="modal-add-ingredients">Add to Shopping List</button>
-                        <button class="button is-danger-light" id="close-modal-two">Cancel</button>
+                        <button class="button is-danger is-light" id="close-modal-two">Cancel</button>
                       </footer>
                     </div>
                   </div>
@@ -137,6 +137,23 @@
                 </div>
             </section>
         </div>
+
+        <!--Error Handling Modal-->
+        <div class="modal" id="error-modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title" id="modal-error-title">Error</p>
+                <button class="delete" id="close-modal-error-one"></button>
+              </header>
+              <section class="modal-card-body">
+                <div id="modal-error-content">sample content</div>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-danger is-light" id="close-modal-error-two">OK</button>
+              </footer>
+            </div>
+          </div>
     </div>
 
     <!--Footer with attributions-->

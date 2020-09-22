@@ -47,20 +47,23 @@ var complexRecipeSearchCall = function(searchTerm) {
         if (callsRemaining > 5) {
             displayRecipeResults(response);
         } else if (callsRemaining > 2) {
-            alert('Only' + callsRemaining + 'free searches left today');
+            $("#error-modal").addClass("is-active")
+            $("#modal-error-content").text('Only ' + callsRemaining + ' searches left today');
             displayRecipeResults(response);
         } else {
-            alert('Out of searches today. So sorry!')
+            $("#error-modal").addClass("is-active")
+            $("#modal-error-content").text('Out of searches today. So sorry!');
             return
         }   
     })
     .fail(function() {
-        alert('There was an error communicating with the server. Please try again.');
+        $("#error-modal").addClass("is-active")
+        $("#modal-error-content").text('There was an error communicating with the server. Please try again.');
     })    
 }
 
 // recipe information search: https://spoonacular.com/food-api/docs#Get-Recipe-Information
-var recipeInformationCall = function(recipeId,tileId) {
+var recipeInformationCall = function(recipeId,tileId,totalTiles) {
     // console.log("recipeInformationCall function was called");
     // console.log(recipeId)
 
@@ -122,6 +125,9 @@ var recipeInformationCall = function(recipeId,tileId) {
         // An HTML Element is created for the Tile ID
         var tileIdEl = '<p class="is-size-7 is-hidden" id="modal-tile-id">' + tileId + '</p>';
 
+        // An HTML Element is created for the total number of tiles
+        var totalTilesEl = '<p class="is-size-7 is-hidden" id="modal-total-tile">' + totalTiles  + '</p>';
+
         // An HTML Element is created for the source URL
         var urlEl = '<p class="is-size-7"><a href="' + sourceUrl + '" target="_blank">See original recipe</a></p>';
 
@@ -147,10 +153,14 @@ var recipeInformationCall = function(recipeId,tileId) {
         $("#recipe-summary-saved").html(titleEl + recipeIdEl + pictureEl + urlEl + summaryEl + ingredientsListEl + shoppingListEl + instructionsEl);
 
         // Also for the card style modal
-        $('#modal-recipe-title').html(titleEl + tileIdEl + recipeIdEl)
+        $('#modal-recipe-title').html(titleEl + tileIdEl + totalTilesEl + recipeIdEl)
         $('#modal-recipe-ingredients').html(pictureEl + ingredientsListEl + shoppingListEl)
         $('#modal-recipe-instructions').html(instructionsEl)
-    });
+    })
+    .fail(function() {
+        $("#error-modal").addClass("is-active")
+        $("#modal-error-content").text('There was an error communicating with the server. Please try again.');
+    })     
 }
 
 
@@ -176,7 +186,10 @@ var displayRecipeResults = function(response) {
         // console.log(recipeIdEl);
         var tileIdEl = $("<span hidden>")
         .attr("id", "tile-id")
-        .text("tile " + i);
+        .text(i);
+        var totalTilesEl = $("<span hidden>")
+        .attr("id", "total-tiles")
+        .text(Object.keys(response.results).length)
         // console.log(tileIdEl);
         var recipeTileFigureEl = $("<figure>")
             .addClass('image is-96x96');
@@ -189,6 +202,7 @@ var displayRecipeResults = function(response) {
         recipeTileTitleEl.appendTo($(recipeTileEl));
         recipeIdEl.appendTo($(recipeTileEl));
         tileIdEl.appendTo($(recipeTileEl));
+        totalTilesEl.appendTo($(recipeTileEl));
         recipeTileFigureEl.appendTo($(recipeTileEl));
         recipeTileEl.appendTo($(recipeEl));
         recipeEl.appendTo($(recipeContainerEl));
@@ -290,12 +304,20 @@ $("#recipe-content").on('click', '.recipe-tile', function() {
     console.log("recipe tile clicked")
     var recipeId = $(this).find("#recipe-id").text();
     var tileId = $(this).find("#tile-id").text();
-    recipeInformationCall(recipeId, tileId);
+    var totalTiles = $(this).find("#total-tiles").text();
+    recipeInformationCall(recipeId, tileId, totalTiles);
     // var target = $("#recipe-details-modal");
     var target = $("#recipe-modal");
     $("html").addClass("is-clipped");
     $(target).addClass("is-active");
     $("#modal-remove-recipe").addClass("is-hidden")
+    // the previous button is disabled for the first result and the next button is disabled for the last search result
+    $("#modal-back-button, #modal-next-button").removeAttr("disabled");
+    if (tileId == 0) {
+        $("#modal-back-button").attr("disabled", true);
+    } else if (tileId == (totalTiles - 1)) {
+        $("#modal-next-button").attr("disabled", true);
+    }
 });
 
 // When the user clicks on a saved recipe, they are given the information again
@@ -315,7 +337,7 @@ $("#saved-recipe-list").on('click', 'li', function() {
 });
 
 // When a modal is closed, the user is returned to the active page and the buttons are returned to the neutral state
-$(".modal-close, #close-modal-one, #close-modal-two").click(function() {
+$(".modal-close, #close-modal-one, #close-modal-two, #close-modal-error-one, #close-modal-error-two").click(function() {
     $("html").removeClass("is-clipped");
     $(this).parents().removeClass("is-active");
     $("#modal-save-recipe").removeClass("is-hidden")
@@ -366,15 +388,71 @@ $("#remove-recipe-button, #modal-remove-recipe").on('click', function() {
 // When the user clicks on the "next" button, the next recipe result is shown
 $("#modal-next-button").on('click', function() {
     console.log('next button clicked')
-    var tileId = $('#tile-id')[0].innerHTML;
+    var tileId = $('#modal-tile-id')[0].innerHTML;
+    var totalTiles = $('#modal-total-tile')[0].innerHTML;
     console.log("tile id: " + tileId);
+    var nextTileId = parseInt(tileId) + 1;
+    var nextRecipeTile = $(".recipe-tile")[nextTileId];
+    console.log(nextRecipeTile);
+    var nextRecipeId = $("span#recipe-id")[nextTileId].innerHTML;
+    console.log(nextRecipeId);
+
+    $("html").removeClass("is-clipped");
+    $(this).parents().removeClass("is-active");
+    $("#modal-save-recipe").removeClass("is-hidden")
+    $("#modal-remove-recipe").removeClass("is-hidden")
+    $("#modal-next-button").removeClass("is-hidden")
+    $("#modal-back-button").removeClass("is-hidden")
+
+    recipeInformationCall(nextRecipeId, nextTileId, totalTiles);
+    // var target = $("#recipe-details-modal");
+    var target = $("#recipe-modal");
+    $("html").addClass("is-clipped");
+    $(target).addClass("is-active");
+    $("#modal-remove-recipe").addClass("is-hidden")
+    // the previous button is disabled for the first result and the next button is disabled for the last search result
+    $("#modal-back-button, #modal-next-button").removeAttr("disabled");
+    if (nextTileId == 0) {
+        $("#modal-back-button").attr("disabled", true);
+    } else if (nextTileId == (totalTiles - 1)) {
+        $("#modal-next-button").attr("disabled", true);
+    }
+
 })
 
 // When the user clicks on the "previous" button, the previous recipe result is shown
 $("#modal-back-button").on('click', function() {
     console.log('back button clicked')
-    var tileId = $("#tile-id")[0].innerHTML;
+    var tileId = $("#modal-tile-id")[0].innerHTML;
+    var totalTiles = $('#modal-total-tile')[0].innerHTML;
     console.log(" tile id: " + tileId);
+    var prevTileId = parseInt(tileId) - 1;
+    var prevRecipeTile = $(".recipe-tile")[prevTileId];
+    console.log(prevRecipeTile);
+    var prevRecipeId = $("span#recipe-id")[prevTileId].innerHTML;
+    console.log(prevRecipeId);
+
+    $("html").removeClass("is-clipped");
+    $(this).parents().removeClass("is-active");
+    $("#modal-save-recipe").removeClass("is-hidden")
+    $("#modal-remove-recipe").removeClass("is-hidden")
+    $("#modal-next-button").removeClass("is-hidden")
+    $("#modal-back-button").removeClass("is-hidden")
+
+    recipeInformationCall(prevRecipeId, prevTileId, totalTiles);
+    // var target = $("#recipe-details-modal");
+    var target = $("#recipe-modal");
+    $("html").addClass("is-clipped");
+    $(target).addClass("is-active");
+    $("#modal-remove-recipe").addClass("is-hidden")
+    // the previous button is disabled for the first result and the next button is disabled for the last search result
+    $("#modal-back-button, #modal-next-button").removeAttr("disabled");
+    if (prevTileId == 0) {
+        $("#modal-back-button").attr("disabled", true);
+    } else if (prevTileId == (totalTiles - 1)) {
+        $("#modal-next-button").attr("disabled", true);
+    }
+
 })
 
 // initialize the saved recipes array
@@ -386,6 +464,7 @@ var createSavedRecipe = function() {
     var title = $("#modal-title").text();
     var pictureTag = $("#modal-picture")[0].innerHTML;
     var recipeId = $("#modal-recipe-id")[0].innerHTML;
+    // var tileId = $("#modal-tile-id")[0].innerHTML;
     console.log(recipeId);
     // An HTML Element is created for the title and id
     var titleEl = '<p class="is-size-7 is-inline"><span class = "is-hidden">' + recipeId + '</span>' + title + '</p>'
