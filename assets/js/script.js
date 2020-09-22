@@ -23,7 +23,7 @@ var complexRecipeSearchCall = function(searchTerm) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=" + searchTerm,
+        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=" + searchTerm + "&instructionsRequired=true&number=12",
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
