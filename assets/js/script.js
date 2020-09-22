@@ -23,7 +23,7 @@ var complexRecipeSearchCall = function(searchTerm) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=" + searchTerm + "&instructionsRequired=true&number=12",
+        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=" + searchTerm + "&instructionsRequired=false&number=12",
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
@@ -356,7 +356,6 @@ $("#remove-recipe-button, #modal-remove-recipe").on('click', function() {
     var selectedRecipeId = $("#modal-recipe-id")[0].innerHTML;
     localSavedRecipes.forEach(function(items, index) {
         var recipeId = items.id;
-        console.log('array recipe id: ' + recipeId)
         if (recipeId == selectedRecipeId) {
             localSavedRecipes.splice(index,1);
         }
@@ -430,18 +429,25 @@ var createSavedRecipe = function() {
     var pictureTag = $("#modal-picture")[0].innerHTML;
     var recipeId = $("#modal-recipe-id")[0].innerHTML;
     // An HTML Element is created for the title and id
-    var titleEl = '<p class="is-size-7 is-inline-flex"><span class = "is-hidden">' + recipeId + '</span>' + title + '</p>'
+    var titleEl = '<p class="is-size-7"><span class = "is-hidden">' + recipeId + '</span>' + title + '</p>'
     // An HTML Element is created for the image
-    var pictureEl = '<figure class = "image is-16x16 is-inline-flex">' + pictureTag + '</figure>'
+    var pictureEl = '<figure class = "image">' + pictureTag + '</figure>'
     // A list item element is created for the saved recipe
     savedRecipeListItem = $("<li class = 'saved-recipe-item'>")
     // The content is added to the list item is added to the Saved Recipes list
     savedRecipeListItem.html(pictureEl + titleEl);
     savedRecipeListItem.appendTo($("#saved-recipe-list"));
+    // If the item is a duplicate, the duplicate is removed
+    localSavedRecipes.forEach(function(items, index) {
+        var savedRecipeId = items.id;
+        if (recipeId == savedRecipeId) {
+            localSavedRecipes.splice(index,1)
+        }
+    })
     // The recipe attributes are saved to the saved recipe array at the beginning
     var localRecipeItem = {"title": titleEl, "picture": pictureEl, "id": recipeId};
-    console.log(localRecipeItem);
     localSavedRecipes.unshift(localRecipeItem);
+
 };
 
 // Save the saved recipe list
