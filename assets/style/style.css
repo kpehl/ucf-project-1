@@ -18,8 +18,19 @@ a {
 }
 
 /* Images in saved recipe list */
+#saved-recipe-list li {
+    padding: 0.75rem;
+}
+
 #saved-recipe-list img {
+    float: left;
     width: 15%;
+    vertical-align: top;
+}
+
+#saved-recipe-list p {
+    width: 85%;
+    vertical-align: top;
 }
 
 /* Modal titles and text will wrap if needed */
