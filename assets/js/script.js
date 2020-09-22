@@ -67,6 +67,8 @@ var recipeInformationCall = function(recipeId) {
         */
         
         //jquery attempt
+        var modalPrintTitleEl = $('#recipe-title');
+        var modalPrintRecEl = $('#modal-recipe-content');
         var modalTitleEl = $("<h1>")
             .text(response.title);
         console.log(modalTitleEl);
@@ -77,6 +79,9 @@ var recipeInformationCall = function(recipeId) {
             .text(response.instructions);
         console.log(modalInstructEl);
         
+        modalTitleEl.appendTo($(modalPrintTitleEl));
+        modalIngredientEl.appendTo($(modalPrintRecEl));
+        modalInstructEl.appendTo($(modalPrintRecEl));
         //appends
      });
     
@@ -170,6 +175,7 @@ $('#back-button').click(function(){
 $('#close-modal-x').click(function() {
     //console.log("clicked");
     $('#recipe-modal').removeClass('is-active');
+    //call function to set title and recipe to blank strings
 })
 $('#close-modal-close').click(function() {
     //console.log("clicked");
