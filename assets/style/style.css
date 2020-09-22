@@ -22,6 +22,11 @@ a {
     width: 15%;
 }
 
-.footer {
-    background-color: rgb(34, 127, 214);
+/* .map {
+    flex-wrap: wrap;
 }
+
+.footer {
+    background-color: rgb(74, 154, 228);
+    text-emphasis: bold;
+} */

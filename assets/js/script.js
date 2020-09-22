@@ -12,7 +12,7 @@ var myKey = "AIzaSyAA5eb9-1T_lunhaqi0inxQjTbBFHdKCrU"
 // Define the embedded map url with a supermarket query and a zoom setting to show the local area 
 var embeddedMapUrl = "https://www.google.com/maps/embed/v1/search?key=" + myKey + "&q=supermarket&zoom=12";
 // Create the html element
-embeddedMapEl = '<figure class = "image"><iframe width="450" height="250" frameborder="0" style="border:0" src="' + embeddedMapUrl + '" allowfullscreen></iframe></figure>'
+embeddedMapEl = '<figure class = "image"><iframe width="300" height="250" frameborder="0" style="border:0" src="' + embeddedMapUrl + '" allowfullscreen></iframe></figure>'
 // Embed the map with the search results
 document.querySelector("#map-container").innerHTML = embeddedMapEl;
 
