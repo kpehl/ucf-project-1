@@ -17,20 +17,21 @@ a {
     padding-left: 0.25rem;
 }
 
-/* Images in saved recipe list */
-#saved-recipe-list li {
-    padding: 0.75rem;
+/* saved recipe list */
+#saved-recipe-list ul {
+    display: inline-flex;
+    flex-direction: column;
 }
 
 #saved-recipe-list img {
-    float: left;
-    width: 15%;
+    width: 20%;
     vertical-align: top;
 }
 
 #saved-recipe-list p {
-    width: 85%;
-    vertical-align: top;
+    width: 100%;
+    vertical-align: middle;
+    padding: 0.25rem;
 }
 
 /* Modal titles and text will wrap if needed */

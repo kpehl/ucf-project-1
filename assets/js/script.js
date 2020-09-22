@@ -143,6 +143,9 @@ var recipeInformationCall = function(recipeId,tileId,totalTiles) {
 var displayRecipeResults = function(response) {
     // clear previous content
     document.querySelector("#recipe-content").innerHTML = "";
+    // add a title
+    document.querySelector("#recipe-search-header").innerHTML = "<h3>Search Results:<h3>";
+    // loop through the results and create tiles for each
     for (i=0;i<Object.keys(response.results).length;i++) {
         var recipeEl = $("<div>")
             .addClass('tile is-parent is-2 recipe-tile');
