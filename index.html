@@ -44,7 +44,7 @@
                 <p class="menu-label">
                     Saved recipes
                 </p>
-                <ul class="menu-list">
+                <ul class="menu-list" id="saved-recipes">
                     <li>
                         Sample saved recipe
                     </li>
@@ -53,14 +53,35 @@
         </div>
         <div class="column is-10">
             <section class = "section">
-                <div class = "container" id = "recipe-content">
+                <!-- <div class = "container" id = "recipe-content"> -->
                     <!--sample input to keep from using up data calls-->
-                    <!-- <div class="container tile is-ancestor" id="recipe-content"><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry</a><span hidden="" id="recipe-id">729592</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/729592-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice</a><span hidden="" id="recipe-id">195407</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/195407-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Puffs</a><span hidden="" id="recipe-id">648470</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/648470-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry with Edamame</a><span hidden="" id="recipe-id">758346</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/758346-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice With Hanger Steak</a><span hidden="" id="recipe-id">470149</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/470149-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Homemade Japanese Curry Rice</a><span hidden="" id="recipe-id">33321</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/33321-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Instant Pot Japanese Curry Chicken</a><span hidden="" id="recipe-id">955075</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/955075-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Lamb Shoulder Steak With Japanese Curry Oil</a><span hidden="" id="recipe-id">81758</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/81758-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Dry Curry</a><span hidden="" id="recipe-id">1434143</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1434143-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Karepan (Japanese Curry Grilled Cheese)</a><span hidden="" id="recipe-id">1439011</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1439011-312x231.jpg"></figure></article></div></div> -->
-                </div>
+                    <div class="container tile is-ancestor" id="recipe-content"><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry</a><span hidden="" id="recipe-id">729592</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/729592-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice</a><span hidden="" id="recipe-id">195407</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/195407-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Puffs</a><span hidden="" id="recipe-id">648470</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/648470-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry with Edamame</a><span hidden="" id="recipe-id">758346</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/758346-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice With Hanger Steak</a><span hidden="" id="recipe-id">470149</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/470149-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Homemade Japanese Curry Rice</a><span hidden="" id="recipe-id">33321</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/33321-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Instant Pot Japanese Curry Chicken</a><span hidden="" id="recipe-id">955075</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/955075-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Lamb Shoulder Steak With Japanese Curry Oil</a><span hidden="" id="recipe-id">81758</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/81758-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Dry Curry</a><span hidden="" id="recipe-id">1434143</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1434143-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Karepan (Japanese Curry Grilled Cheese)</a><span hidden="" id="recipe-id">1439011</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1439011-312x231.jpg"></figure></article></div></div>
+                <!-- </div> -->
             </section>
         </div>
     </div>
 
+    <div class="modal" id="recipe-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title" id="recipe-title">
+                <!--recipe title printed here-->
+            </p>
+            <button class="delete" id="close-modal-x"></button>
+          </header>
+          <section class="modal-card-body" id="modal-recipe-content">
+            <!--recipe ingredients and instructions printed here-->
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button" id="next-button">Next</button>
+            <button class="button" id="back-button">Previous</button>
+            <button class="button is-success" id="save-recipe">Save Recipe</button>
+            <button class="button" id="add-ingredients">Add to Shopping List</button>
+            <button class="button" id="close-modal-close">Cancel</button>
+          </footer>
+        </div>
+      </div>
 
 
 
