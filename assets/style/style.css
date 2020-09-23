@@ -5,8 +5,9 @@
     flex-wrap: wrap;
 }
 
-/* When a user hovers on a recipe tile or a shopping list item, the cursor will change to a pointer to indicate that it can be clicked */
-.recipe-tile:hover, #shopping-list-container:hover {
+/* When a user hovers on a recipe tile, saved recipe, or a shopping list item, the cursor will change 
+to a pointer to indicate that it can be clicked */
+.recipe-tile:hover, .shopping-list-item:hover, #saved-recipe-list:hover {
     cursor: pointer;
 }
 

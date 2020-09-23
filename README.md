@@ -15,13 +15,13 @@ Below the shopping list, there is a section with a map showing grocery stores ne
 The Bulma CSS framework is used for styling.
 
 ## Tools Used
-HTML
-CSS
-Bulma
-JavaScript
-jQuery
-Server side and client side Web APIs
-AJAX
+* HTML
+* CSS
+* Bulma
+* JavaScript
+* jQuery
+* Server side and client side Web APIs
+* AJAX
 
 ## Collaboration
 This application was created by Kathleen Pehl, Jonathan Saunders, and Ian Englehart.
@@ -30,4 +30,4 @@ This application was created by Kathleen Pehl, Jonathan Saunders, and Ian Engleh
 The application is hosted at: https://kpehl.github.io/ucf-project-1/ 
 
 ## Screenshot
-(coming soon)
+![screenshot](./assets/images/cook-something-good-screenshots.png)
