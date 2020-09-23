@@ -84,10 +84,11 @@ var recipeInformationCall = function(recipeId) {
         modalInstructEl.appendTo($(modalPrintRecEl));
         //appends
      });
-    
-
 }
 
+var modalClear = function(){
+    
+}
 
 // A function to display the recipe results from a search
 
