@@ -41,14 +41,14 @@ a {
     flex-shrink: 1;
 }
 
-/* Hero Styling */
-.hero {
+/* Alternate Hero Styling */
+/* .hero {
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/hue12-photography-rScZlwNBezc-unsplash-hero.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-}
+} */
 
 /* Footer Styling */
 .footer {

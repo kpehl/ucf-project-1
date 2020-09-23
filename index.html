@@ -12,18 +12,45 @@
 </head>
 <body>
 
-    <section class = "hero is-info">
-        <div class = "hero-body">
-            <div class = "container">
-                <h1 class = "title">
-                    Cook Something Good!
-                </h1>
-                <h2 class = "subtitle">
-                    Search for recipes, get ingredient lists, go shopping, and get cooking.
-                </h2>
+    <section class = "hero is-info is-bold">
+        <div class="hero-head">
+          <nav class="navbar">
+            <div class="container">
+              <div class="navbar-brand">
+                  <img src="./assets/images/cooking-icon.jpg" alt="Logo">
+                <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </div>
+              <div id="navbarMenuHeroA" class="navbar-menu">
+                <div class="navbar-end">
+                  <span class="navbar-item">
+                    <a href="https://github.com/kpehl/ucf-project-1.git" class="button is-primary is-inverted">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Repository</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
             </div>
+          </nav>
         </div>
-    </section>
+
+      <div class = "hero-body">
+          <div class = "container has-text-centered">
+              <h1 class = "title">
+                  Get Out and Cook Something Good!
+              </h1>
+              <h2 class = "subtitle">
+                  Search for recipes, get ingredient lists, go shopping, and get cooking.
+              </h2>
+          </div>
+      </div>
+  </section>
 
     <div class="columns is-centered">
         <!--Sidebar menu with search function and saved recipes-->
@@ -131,7 +158,7 @@
     </div>
 
     <!--Footer with attributions-->
-    <footer class="footer">
+    <footer class="footer has-background-info has-text-centered is-small has-text-white has-text-weight-bold">
         <div class = "container">
             <div class="content">
                 <p style="display: inline-flex">
@@ -147,6 +174,11 @@
                             <img src="./assets/images/maps-icon.svg" alt="Google Maps Logo" width = "32" height="32" />
                         </figure>
                     </a>
+                </p>
+                <p style="display:inline-flex">
+                    Created by <a href = "https://github.com/kpehl" target = "_blank"> Kathleen Pehl</a>,
+                    <a href = "https://github.com/ienglehart" target = "_blank">Ian Englehart</a>, and 
+                    <a href = "https://github.com/JonathanSaunders98" target = "_blank">Jonathan Saunders</a>.    
                 </p>
             </div>
         </div>
