@@ -5,9 +5,27 @@
     flex-wrap: wrap;
 }
 
-/* When a user hovers on a recipe tile, the cursor will change to a pointer to indicate that it can be clicked */
-.recipe-tile:hover {
+/* When a user hovers on a recipe tile or a shopping list item, the cursor will change to a pointer to indicate that it can be clicked */
+.recipe-tile:hover, #shopping-list-container:hover {
     cursor: pointer;
+
+}
+
+/* Link style */
+a {
+    text-decoration: underline dotted;
+    color: black;
+    padding-left: 0.25rem;
+}
+
+/* Images in saved recipe list */
+#saved-recipe-list img {
+    width: 25%;
+}
+
+#map-container {
+    flex-wrap: wrap;
+    border-width: 40px;
 }
 
 

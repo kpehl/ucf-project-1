@@ -12,9 +12,36 @@
 </head>
 <body>
 
-    <section class = "hero is-info">
+    <section class = "hero is-info is-bold">
+          <div class="hero-head">
+            <nav class="navbar">
+              <div class="container">
+                <div class="navbar-brand">
+                    <img src="./assets/images/cooking-icon.jpg" alt="Logo">
+                  <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                </div>
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                  <div class="navbar-end">
+                    <span class="navbar-item">
+                      <a href="https://github.com/kpehl/ucf-project-1.git" class="button is-primary is-inverted">
+                        <span class="icon">
+                          <i class="fab fa-github"></i>
+                        </span>
+                        <span>Repository</span>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+
         <div class = "hero-body">
-            <div class = "container">
+            <div class = "container has-text-centered">
                 <h1 class = "title">
                     Get Out and Cook Something Good!
                 </h1>
@@ -25,25 +52,31 @@
         </div>
     </section>
 
-    <div class="columns">
-        <div class="column is-2">
+    <div class="columns is-centered">
+        <div class="column is-2 is-centered">
             <aside class = "menu">
                 <ul class="menu-list">
                     <li>
-                        <div class="field" id="recipe-search-field">
-                            <label class="label">Search:</label>
-                            <div class="control">
-                                <input id="search-input" class="input is-info is-rounded" type="text" placeholder="search for a recipe here">
+                        <form>
+                            <div class="field" id="recipe-search-field">
+                                <label class="label">Search:</label>
+                                <div class="control">
+                                    <input id="search-input" class="input is-info is-rounded" type="text" placeholder="search for a recipe here">
+                                </div>
+                                <div class="control">
+                                    <button type="submit" class = "button is-info is-light is-rounded" id="recipe-search-button" value="Search for a recipe"><span class = "icon" id="recipe-search-icon"><i class = "fas fa-search"></i></span><span>Search for a recipe</span></button>
+                                </div>
                             </div>
-                            <div class="control">
-                                <button type = "submit" class = "button is-info is-light is-rounded" id="recipe-search"><span class = "icon"><i class = "fas fa-search"></i></span><span>Search for a recipe</span></button>
-                            </div>
-                        </div>
+                        </form>
                     </li>
                 </ul>
                 <p class="menu-label">
                     Saved recipes
                 </p>
+
+                <ul class="menu-list" id="saved-recipe-list"></ul>
+            </aside>   
+
                 <ul class="menu-list" id="saved-recipes">
                     <li>
                         Sample saved recipe
@@ -51,15 +84,96 @@
                 </ul>
             </aside>
         </div>
-        <div class="column is-10">
+        <div class="column is-7">
             <section class = "section">
                 <!-- <div class = "container" id = "recipe-content"> -->
                     <!--sample input to keep from using up data calls-->
-                    <div class="container tile is-ancestor" id="recipe-content"><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry</a><span hidden="" id="recipe-id">729592</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/729592-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice</a><span hidden="" id="recipe-id">195407</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/195407-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Puffs</a><span hidden="" id="recipe-id">648470</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/648470-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry with Edamame</a><span hidden="" id="recipe-id">758346</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/758346-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice With Hanger Steak</a><span hidden="" id="recipe-id">470149</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/470149-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Homemade Japanese Curry Rice</a><span hidden="" id="recipe-id">33321</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/33321-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Instant Pot Japanese Curry Chicken</a><span hidden="" id="recipe-id">955075</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/955075-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Lamb Shoulder Steak With Japanese Curry Oil</a><span hidden="" id="recipe-id">81758</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/81758-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Dry Curry</a><span hidden="" id="recipe-id">1434143</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1434143-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Karepan (Japanese Curry Grilled Cheese)</a><span hidden="" id="recipe-id">1439011</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1439011-312x231.jpg"></figure></article></div></div>
-                <!-- </div> -->
+                    <!-- <div class="container tile is-ancestor" id="recipe-content"><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry</a><span hidden="" id="recipe-id">729592</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/729592-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice</a><span hidden="" id="recipe-id">195407</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/195407-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Puffs</a><span hidden="" id="recipe-id">648470</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/648470-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry with Edamame</a><span hidden="" id="recipe-id">758346</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/758346-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Curry Rice With Hanger Steak</a><span hidden="" id="recipe-id">470149</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/470149-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Homemade Japanese Curry Rice</a><span hidden="" id="recipe-id">33321</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/33321-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Instant Pot Japanese Curry Chicken</a><span hidden="" id="recipe-id">955075</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/955075-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Lamb Shoulder Steak With Japanese Curry Oil</a><span hidden="" id="recipe-id">81758</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/81758-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Japanese Dry Curry</a><span hidden="" id="recipe-id">1434143</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1434143-312x231.jpg"></figure></article></div><div class="tile is-parent is-2 recipe-tile"><article class="tile is-child is-info"><p class="subtitle">Karepan (Japanese Curry Grilled Cheese)</a><span hidden="" id="recipe-id">1439011</span><figure class="image is-96x96"><img src="https://spoonacular.com/recipeImages/1439011-312x231.jpg"></figure></article></div></div> -->
+                </div>
+                <div class = "container" id = "recipe-details"></div>
+            </section>
+            <section class = "section">
+                <div class = "modal" id = "recipe-details-modal">
+                    <div class = "modal-background"></div>
+                    <div class = "modal-content">
+                        <div class = "box">
+                            <div class = "content" id = "recipe-summary"></div>
+                            <button class = "button is-info is-rounded" id = "save-recipe-button"><span class = "icon"><i class="far fa-save"></i></span><span>Save Recipe</span></button>
+                            <button class = "button is-info is-rounded" id = "save-ingredients-button"><span class = "icon"><i class="fas fa-plus"></i></span><span>Add Ingredients to Shopping List</span></button>
+                        </div>
+                    </div>
+                    <button class = "modal-close is-large" aria-label = "close"></button>
+                </div>
+                <div class = "modal" id = "saved-recipe-details-modal">
+                    <div class = "modal-background"></div>
+                    <div class = "modal-content">
+                        <div class = "box">
+                            <div class = "content" id = "recipe-summary-saved"></div>
+                            <button class = "button is-danger is-rounded" id = "remove-recipe-button"><span class = "icon"><i class="fas fa-times"></i></span><span>Remove Recipe</span></button>
+                            <button class = "button is-info is-rounded" id = "save-ingredients-button-2"><span class = "icon"><i class="fas fa-plus"></i></span><span>Add Ingredients to Shopping List</span></button>
+                        </div>
+                    </div>
+                    <button class = "modal-close is-large" aria-label = "close"></button>
+                </div>
+            </section>
+        </div>
+        <div class="column is-2">
+            <section class = "section pt-1">
+                <h3 class = "is-size-4">Shopping List</h3>
+                <div class = "container" id = "shopping-form">
+                    <form>
+                        <div class="field" id="add-item-field">
+                            <label class="label">Add an item:</label>
+                            <div class="control">
+                                <input id="item-input" class="input is-info is-rounded" type="text" placeholder="enter an ingredient here">
+                            </div>
+                            <div class="control">
+                                <button type="submit" class = "button is-info is-light is-rounded" id="add-item-button"><span class = "icon" id="add-item-icon"><i class = "fas fa-plus"></i></span><span>Add Item</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class = "container" id = "shopping-list-container"></div>
+                <div class="field" id="remove-items-field">
+                    <div class="control">
+                        <button class = "button is-small is-danger is-rounded mt-5" id = "remove-all-items"><span class = "icon" id = "remove-all-items-icon"><i class="fas fa-times"></i></span><span>Remove All Items</span></button>
+                    </div>
+                </div>
+            </section>
+            <section class = "section">
+                <h3 class = "is-size-4 has-text-centered">Your Local Supermarkets</h3>
+                <div class = "content level-item" id = "map-container">
+
+                </div>
             </section>
         </div>
     </div>
+    <footer class="footer has-background-info has-text-centered is-small has-text-white has-text-weight-bold">
+        <div class = "container">
+            <div class="content">
+                <p style="display: inline-flex">
+                    Recipe content provided by <a href="https://spoonacular.com/" target="_blank">Spoonacular
+                        <figure class="image is-32x32 ml-1" style="background-color: #00843c; display: inline-flex; vertical-align: middle;">
+                            <img src="./assets/images/spoonacular-logo.svg" alt="Spoonacular Logo" width = "32" height="32" />
+                        </figure>
+                    </a>
+                </p>
+                <p style="display:inline-flex">
+                    Map data provided by <a href = "https://developers.google.com/maps/documentation/embed/get-started" target = "_blank"> Google's Maps Embed API
+                        <figure class="image is-32x32 ml-1" style="display: inline-flex; vertical-align: middle;">
+                            <img src="./assets/images/maps-icon.svg" alt="Google Maps Logo" width = "32" height="32" />
+                        </figure>
+                    </a>
+                </p>
+                <p style="display:inline-flex">
+                    Created by <a href = "https://github.com/kpehl" target = "_blank"> Kathleen Pehl</a>,
+                    <a href = "https://github.com/ienglehart" target = "_blank">Ian Englehart</a>, and 
+                    <a href = "https://github.com/JonathanSaunders98" target = "_blank">Jonathan Saunders</a>.    
+                </p>
+            </div>
+        </div>
+    </footer>
+
 
     <div class="modal" id="recipe-modal">
         <div class="modal-background"></div>
@@ -82,6 +196,7 @@
           </footer>
         </div>
       </div>
+
 
 
 
