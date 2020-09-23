@@ -8,6 +8,7 @@
 /* When a user hovers on a recipe tile or a shopping list item, the cursor will change to a pointer to indicate that it can be clicked */
 .recipe-tile:hover, #shopping-list-container:hover {
     cursor: pointer;
+
 }
 
 /* Link style */
@@ -19,14 +20,10 @@ a {
 
 /* Images in saved recipe list */
 #saved-recipe-list img {
-    width: 15%;
+    width: 25%;
 }
 
-/* .map {
+#map-container {
     flex-wrap: wrap;
+    border-width: 40px;
 }
-
-.footer {
-    background-color: rgb(74, 154, 228);
-    text-emphasis: bold;
-} */
