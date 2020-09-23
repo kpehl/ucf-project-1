@@ -1,6 +1,7 @@
 // Recipe Search Scripts
 
-// var searchTerm = "seafood pasta";
+
+var searchTerm = "japanese curry";
 
 // Element Definitions
 var recipeContainerEl = $("#recipe-content").addClass("tile is-ancestor");
@@ -19,7 +20,9 @@ document.querySelector("#map-container").innerHTML = embeddedMapEl;
 // Spoonacular API
 
 // complex recipe search: https://spoonacular.com/food-api/docs#Search-Recipes-Complex 
-var complexRecipeSearchCall = function(searchTerm) {
+
+var complexRecipeSearchCall = function() {
+
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -31,6 +34,7 @@ var complexRecipeSearchCall = function(searchTerm) {
         }
     }
     
+
     $.ajax(settings)
     .done(function (response, status, jqXHR) {
         // console.log(response);
@@ -142,22 +146,47 @@ var recipeInformationCall = function(recipeId) {
         // The information is copied to the DOM in the modals
         $("#recipe-summary").html(titleEl + recipeIdEl + pictureEl + urlEl + summaryEl + ingredientsListEl + shoppingListEl + instructionsEl);
         $("#recipe-summary-saved").html(titleEl + recipeIdEl + pictureEl + urlEl + summaryEl + ingredientsListEl + shoppingListEl + instructionsEl);
+      
+        var modalPrintTitleEl = $('#recipe-title');
+        var modalPrintRecEl = $('#modal-recipe-content');
+        var modalTitleEl = $("<h1>")
+            .text(response.title);
+        console.log(modalTitleEl);
+        var modalIngredientEl = $("<div>")
+            .text(response.extendedIngredients);
+        console.log(modalIngredientEl);
+        var modalInstructEl = $("<div>")
+            .text(response.instructions);
+        console.log(modalInstructEl);
+        
+        modalTitleEl.appendTo($(modalPrintTitleEl));
+        modalIngredientEl.appendTo($(modalPrintRecEl));
+        modalInstructEl.appendTo($(modalPrintRecEl));
+        //appends
+     });
 
-    });
 }
 
+var modalClear = function(){
+    
+}
 
 // A function to display the recipe results from a search
+
 var displayRecipeResults = function(response) {
-    // clear previous content
-    document.querySelector("#recipe-content").innerHTML = "";
+    var recipeContainerEl = $("#recipe-content")
+        .addClass("tile is-ancestor")
+
     // console.log(recipeContainerEl)
     for (i=0;i<Object.keys(response.results).length;i++) {
         var recipeEl = $("<div>")
             .addClass('tile is-parent is-2 recipe-tile');
         // console.log(recipeEl)
         var recipeTileEl = $("<article>")
-            .addClass('tile is-child is-info');
+
+            .addClass('tile is-child is-info')
+            .attr("id", "tile"+i);
+
         // console.log(recipeTileEl)
         var recipeTileTitleEl = $("<p>")
             .addClass('subtitle')
@@ -167,6 +196,11 @@ var displayRecipeResults = function(response) {
             .attr("id", "recipe-id")
             .text(response.results[i].id);
         // console.log(recipeIdEl);
+        var tileIdEl = $("<span hidden>")
+            .attr("id", "tile-id")
+            .text(i);
+        console.log(tileIdEl);
+
         var recipeTileFigureEl = $("<figure>")
             .addClass('image is-96x96');
         // console.log(recipeTileFigureEl)
@@ -177,6 +211,7 @@ var displayRecipeResults = function(response) {
         recipeTileImgEl.appendTo($(recipeTileFigureEl));
         recipeTileTitleEl.appendTo($(recipeTileEl));
         recipeIdEl.appendTo($(recipeTileEl));
+        tileIdEl.appendTo($(recipeTileEl));
         recipeTileFigureEl.appendTo($(recipeTileEl));
         recipeTileEl.appendTo($(recipeEl));
         recipeEl.appendTo($(recipeContainerEl));
@@ -252,6 +287,7 @@ var moveToShoppingList = function(shoppingList) {
     displaySavedShoppingList();
 };
 
+
 // When the user clicks on the search button, the search term is read and the recipe search is made
 // Needed DOM elements are defined
 var searchInputEl = document.querySelector("#search-input");
@@ -272,7 +308,6 @@ var recipeSearchHandler = function(event) {
     event.preventDefault();
 };
 
-
 // When the user clicks on the recipe tile, they are given recipe information in a modal
 $("#recipe-content").on('click', '.recipe-tile', function() {
     console.log("recipe tile clicked")
@@ -288,6 +323,7 @@ $("#saved-recipe-list").on('click', 'li', function() {
     console.log('saved recipe clicked')
     var recipeId = $(this).find("span").text();
     console.log(recipeId);
+
     recipeInformationCall(recipeId);
     var target = $("#saved-recipe-details-modal");
     $("html").addClass("is-clipped");
@@ -315,6 +351,7 @@ $("#save-ingredients-button,#save-ingredients-button-2").on('click', function() 
     console.log(shoppingList)
     moveToShoppingList(shoppingList);
 })
+
 
 // When the user clicks on the Remove Recipe button, the recipe is removed from the Saved Recipe List
 $("#remove-recipe-button").on('click', function() {
@@ -442,6 +479,48 @@ $("#remove-all-items").on("click", function() {
 })
 
 
+
+//save recipe
+$('#save-recipe').click(function(){
+    console.log("save clicked");
+    //add save functionality
+});
+
+//add to list
+//get ingredients and add to an array probably
+
+//forward button
+$('#next-button').click(function(){
+    //console.log("next");
+    var tileID = Document.getElementByID("#tile-id");
+    var newTileID = tileID.val() + 1;
+    console.log(tileID);
+
+    // may or may not work, not tested
+    var tileInQuestion = $("#tile-" + NewtileID) //find new tile id
+    recipeId = $(this).find("span").text(); //find recipeID for new tile, problem = looking in span, not whole div add tile number to id in main div, 
+    recipeInformationCall(recipeId); //call function to populate modal, which is already active
+});
+
+//back button
+$('#back-button').click(function(){
+    //console.log("back");
+
+});
+
+
+//close modal
+$('#close-modal-x').click(function() {
+    //console.log("clicked");
+    $('#recipe-modal').removeClass('is-active');
+    //call function to set title and recipe to blank strings
+})
+$('#close-modal-close').click(function() {
+    //console.log("clicked");
+    $('#recipe-modal').removeClass('is-active');
+})
+
+
 // Event listener for a recipe search
 searchFieldEl.addEventListener("click", recipeSearchHandler);
 
@@ -453,3 +532,4 @@ displaySavedShoppingList();
 
 // Load saved recipes when the page loads
 loadRecipe();
+
