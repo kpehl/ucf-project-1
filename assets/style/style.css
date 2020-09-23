@@ -5,7 +5,56 @@
     flex-wrap: wrap;
 }
 
-/* When a user hovers on a recipe tile, the cursor will change to a pointer to indicate that it can be clicked */
-.recipe-tile:hover {
+/* When a user hovers on a recipe tile, saved recipe, or a shopping list item, the cursor will change 
+to a pointer to indicate that it can be clicked */
+.recipe-tile:hover, .shopping-list-item:hover, #saved-recipe-list:hover {
     cursor: pointer;
+}
+
+/* Link style */
+a {
+    text-decoration: underline dotted;
+    color: black;
+    padding-left: 0.25rem;
+}
+
+/* saved recipe list */
+#saved-recipe-list ul {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+#saved-recipe-list img {
+    width: 20%;
+    vertical-align: top;
+}
+
+#saved-recipe-list p {
+    width: 100%;
+    vertical-align: middle;
+    padding: 0.25rem;
+}
+
+/* Modal titles and text will wrap if needed */
+.modal p {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+}
+
+/* Alternate Hero Styling */
+/* .hero {
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/hue12-photography-rScZlwNBezc-unsplash-hero.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+} */
+
+/* Footer Styling */
+.footer {
+    padding: 0.5rem;
+}
+
+.content figure {
+    margin: 0.5rem;
 }
